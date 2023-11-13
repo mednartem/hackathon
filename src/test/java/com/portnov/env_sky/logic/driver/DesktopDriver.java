@@ -22,15 +22,14 @@ public class DesktopDriver {
         chromeOptions.addArguments("--disable-popup-blocking");
         chromeOptions.addArguments("--disable-notifications");
 
-        String remoteUrl = System.getProperty("remoteUrl");
-        if (remoteUrl != null) {
-            Configuration.remote = remoteUrl;
-            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+        if (ProjectConfig.browser.isRemote()) {
+            Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
+
+            capabilities.setCapability("selenoid:options", Map.of(
                     "enableVNC", true,
                     "enableVideo", true
             ));
         }
-        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         Configuration.browserCapabilities = capabilities;
     }
 }
