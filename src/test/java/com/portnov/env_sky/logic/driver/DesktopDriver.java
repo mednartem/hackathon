@@ -22,7 +22,7 @@ public class DesktopDriver {
         chromeOptions.addArguments("--disable-popup-blocking");
         chromeOptions.addArguments("--disable-notifications");
 
-        String remoteUrl = System.getenv("remoteDriverUrl");
+        String remoteUrl = System.getenv("remoteUrl");
         if (remoteUrl != null) {
             Configuration.remote = remoteUrl;
             capabilities.setCapability("selenoid:options", Map.<String, Object>of(
