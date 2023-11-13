@@ -9,8 +9,6 @@ repositories {
 
 group = 'com.portnov.env-sky'
 version = '1.0'
-sourceCompatibility = 17
-targetCompatibility = 17
 
 ext {
     allureVersion = '2.21.0'
