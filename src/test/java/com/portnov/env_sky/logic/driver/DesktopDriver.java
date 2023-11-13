@@ -5,6 +5,8 @@ import com.portnov.env_sky.logic.config.ProjectConfig;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.Map;
+
 public class DesktopDriver {
 
     public static void configure() {
@@ -20,6 +22,14 @@ public class DesktopDriver {
         chromeOptions.addArguments("--disable-popup-blocking");
         chromeOptions.addArguments("--disable-notifications");
 
+        String remoteUrl = System.getenv("remoteDriverUrl");
+        if (remoteUrl != null) {
+            Configuration.remote = remoteUrl;
+            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                    "enableVNC", true,
+                    "enableVideo", true
+            ));
+        }
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         Configuration.browserCapabilities = capabilities;
     }
