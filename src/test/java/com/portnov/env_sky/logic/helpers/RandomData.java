@@ -19,4 +19,12 @@ public class RandomData {
     public static String generateString(int count) {
         return randomAlphabetic(count);
     }
+
+    public static String generateNameCategory() {
+        return "autotest category: " + randomAlphabetic(5);
+    }
+
+    public static String generateDescriptionCategory() {
+        return "description category: " + randomAlphabetic(10);
+    }
 }

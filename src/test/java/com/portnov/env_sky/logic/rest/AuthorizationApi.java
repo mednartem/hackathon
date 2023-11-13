@@ -3,6 +3,7 @@ package com.portnov.env_sky.logic.rest;
 import com.portnov.env_sky.logic.dictionary.api.Cookie;
 import com.portnov.env_sky.logic.dictionary.api.EndpointsApi;
 import com.portnov.env_sky.logic.dictionary.api.Params;
+import com.portnov.env_sky.logic.rest.model.PersonModel;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
@@ -19,11 +20,20 @@ import static io.restassured.RestAssured.given;
 public class AuthorizationApi extends BaseApi {
 
     @Step("I get nop authentication")
-    public String getNopAuthentication(String email, String password) {
+    public PersonModel getNopAuthentication(String email, String password) {
+        PersonModel personModel = new PersonModel();
         ValidatableResponse body = getBaseUrl();
         String verificationToken = getRequestVerificationTokenFromHtml(body.extract().asString());
         String cookieAntiforgery = body.extract().cookie(Cookie.NOP_ANTIFORGERY.getName());
-        return getNopAuthentication(email, password, verificationToken, cookieAntiforgery);
+        String cookieNopAuthentication = getNopAuthentication(email, password, verificationToken, cookieAntiforgery);
+
+        personModel.setEmail(email);
+        personModel.setPassword(password);
+        personModel.setVerificationToken(verificationToken);
+        personModel.setCookieNopAntiforgery(cookieAntiforgery);
+        personModel.setCookieNopAuthentication(cookieNopAuthentication);
+
+        return personModel;
     }
 
     private String getRequestVerificationTokenFromHtml(String html) {
