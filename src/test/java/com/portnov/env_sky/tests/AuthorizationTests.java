@@ -1,10 +1,12 @@
 package com.portnov.env_sky.tests;
 
 import com.portnov.env_sky.logic.config.ProjectConfig;
+import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.dictionary.ui.Error;
 import com.portnov.env_sky.logic.helpers.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
-import com.portnov.env_sky.logic.steps.AuthSteps;
+import com.portnov.env_sky.logic.pages.HeaderWidget;
+import com.portnov.env_sky.logic.pages.LogInPage;
 import com.portnov.env_sky.logic.steps.BaseSteps;
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.DisplayName;
@@ -19,19 +21,23 @@ import java.util.stream.Stream;
 public class AuthorizationTests {
 
     private final BaseSteps baseSteps = new BaseSteps();
-    private final AuthSteps authSteps = new AuthSteps();
+    private final LogInPage logInPage = new LogInPage();
+    private final HeaderWidget headerWidget = new HeaderWidget();
 
     @Test
     @Link(value = "Test case TEAM1-58", url = "https://jira.portnov.com/browse/TEAM1-58")
     void loginValid() {
         baseSteps
                 .iOpenBasePage();
-        authSteps
-                .iClickLoginBtnInTheHeader()
+        headerWidget
+                .iClickLoginLink();
+        logInPage
                 .iTypeEmail(ProjectConfig.credential.adminEmail())
                 .iTypePassword(ProjectConfig.credential.adminPassword())
-                .iClickLoginBtn()
-                .accountLinkShouldBeVisibleInTheHeader();
+                .iClickLoginBtn();
+        headerWidget
+                .logoutLinkShouldBeVisible()
+                .myAccountLinkShouldBeVisible();
     }
 
     @DisplayName("Invalid login")
@@ -42,9 +48,8 @@ public class AuthorizationTests {
     @MethodSource("invalidData")
     void loginInvalid(String email, String password, Error error, String displayName) {
         baseSteps
-                .iOpenBasePage();
-        authSteps
-                .iClickLoginBtnInTheHeader()
+                .iOpenBasePageWith(EndpointsUi.LOGIN);
+        logInPage
                 .iTypeEmail(email)
                 .iTypePassword(password)
                 .iClickLoginBtn()
@@ -84,9 +89,8 @@ public class AuthorizationTests {
     @MethodSource("combineEmptyEmailField")
     void loginWithEmptyFields(String email, String password, Error error, String displayName) {
         baseSteps
-                .iOpenBasePage();
-        authSteps
-                .iClickLoginBtnInTheHeader()
+                .iOpenBasePageWith(EndpointsUi.LOGIN);
+        logInPage
                 .iTypeEmail(email)
                 .iTypePassword(password)
                 .iClickLoginBtn()
@@ -115,8 +119,8 @@ public class AuthorizationTests {
         baseSteps
                 .iOpenBasePage()
                 .iAddCookieToBrowserAndRefreshPage(ProjectConfig.credential.adminEmail(), ProjectConfig.credential.adminPassword());
-        authSteps
-                .iClickLogoutBtnInTheHeader()
-                .loginBtnShouldBeVisibleInTheHeader();
+        headerWidget
+                .iClickLogoutLink()
+                .loginBtnShouldBeVisible();
     }
 }

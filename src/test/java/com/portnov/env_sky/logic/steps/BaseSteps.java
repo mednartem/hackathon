@@ -1,9 +1,9 @@
 package com.portnov.env_sky.logic.steps;
 
 import com.codeborne.selenide.Selenide;
+import com.portnov.env_sky.logic.dictionary.api.Cookie;
 import com.portnov.env_sky.logic.rest.AuthorizationApi;
 import io.qameta.allure.Step;
-import com.portnov.env_sky.logic.dictionary.api.Cookie;
 
 public class BaseSteps {
 
@@ -11,6 +11,11 @@ public class BaseSteps {
     public BaseSteps iOpenBasePage() {
         Selenide.open("/");
         return this;
+    }
+
+    @Step("I open base url with {url}")
+    public void iOpenBasePageWith(String url) {
+        Selenide.open(url);
     }
 
     @Step("I add cookie to browser for user email `{email}`, password `{password}`")

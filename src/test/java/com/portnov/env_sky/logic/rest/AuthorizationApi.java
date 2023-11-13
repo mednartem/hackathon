@@ -1,10 +1,11 @@
 package com.portnov.env_sky.logic.rest;
 
+import com.portnov.env_sky.logic.dictionary.api.Cookie;
+import com.portnov.env_sky.logic.dictionary.api.EndpointsApi;
+import com.portnov.env_sky.logic.dictionary.api.Params;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import com.portnov.env_sky.logic.dictionary.api.Cookie;
-import com.portnov.env_sky.logic.dictionary.api.Params;
 import org.apache.http.HttpStatus;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,7 +28,7 @@ public class AuthorizationApi extends BaseApi {
 
     private String getRequestVerificationTokenFromHtml(String html) {
         Document document = Jsoup.parse(html);
-        Element tokenInput = document.select("input[name="  + Params.REQUEST_VERIFICATION_TOKEN + "]").first();
+        Element tokenInput = document.select("input[name=" + Params.REQUEST_VERIFICATION_TOKEN + "]").first();
         return Objects.requireNonNull(tokenInput).attr("value");
     }
 
@@ -51,7 +52,7 @@ public class AuthorizationApi extends BaseApi {
                     put(Params.REQUEST_VERIFICATION_TOKEN, requestVerificationToken);
                 }})
                 .redirects().follow(false)
-                .post(Endpoints.LOGIN)
+                .post(EndpointsApi.LOGIN)
                 .then()
                 .assertThat().statusCode(HttpStatus.SC_MOVED_TEMPORARILY)
                 .extract().cookie(Cookie.NOP_AUTHENTICATION.getName());
