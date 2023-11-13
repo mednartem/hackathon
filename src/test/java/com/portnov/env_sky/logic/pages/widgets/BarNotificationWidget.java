@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.pages;
+package com.portnov.env_sky.logic.pages.widgets;
 
 import com.portnov.env_sky.logic.dictionary.ui.BarNotification;
 import io.qameta.allure.Step;

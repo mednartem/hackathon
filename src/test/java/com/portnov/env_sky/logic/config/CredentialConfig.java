@@ -12,4 +12,10 @@ public interface CredentialConfig extends Config {
 
     @Key("adminPassword")
     String adminPassword();
+
+    @Key("userEmail")
+    String userEmail();
+
+    @Key("userPassword")
+    String userPassword();
 }

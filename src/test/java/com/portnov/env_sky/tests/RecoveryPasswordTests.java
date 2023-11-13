@@ -5,8 +5,8 @@ import com.portnov.env_sky.logic.dictionary.ui.BarNotification;
 import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.helpers.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
-import com.portnov.env_sky.logic.pages.BarNotificationWidget;
-import com.portnov.env_sky.logic.pages.HeaderWidget;
+import com.portnov.env_sky.logic.pages.widgets.BarNotificationWidget;
+import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.pages.LogInPage;
 import com.portnov.env_sky.logic.pages.PasswordRecoveryPage;
 import com.portnov.env_sky.logic.steps.BaseSteps;
@@ -23,8 +23,23 @@ public class RecoveryPasswordTests {
     private final BarNotificationWidget barNotificationWidget = new BarNotificationWidget();
 
     @Test
+    void recoveryPasswordValidForUser() {
+        baseSteps
+                .iOpenBasePage();
+        headerWidget
+                .iClickLoginLink();
+        logInPage
+                .iClickForgotPasswordLink();
+        passwordRecoveryPage
+                .iTypeEmail(ProjectConfig.credential.userEmail())
+                .iClickRecoverBtn();
+        barNotificationWidget
+                .notificationShouldBeVisible(BarNotification.EMAIL_WITH_INSTRUCTIONS_HAS_BEEN_SENT_TO_YOU);
+    }
+
+    @Test
     @Link(value = "Test case TEAM1-74", url = "https://jira.portnov.com/browse/TEAM1-74")
-    void recoverPasswordValid() {
+    void recoveryPasswordValidForAdmin() {
         baseSteps
                 .iOpenBasePage();
         headerWidget
@@ -40,7 +55,7 @@ public class RecoveryPasswordTests {
 
     @Test
     @Link(value = "Test case TEAM1-75", url = "https://jira.portnov.com/browse/TEAM1-75")
-    void recoverPasswordNotRegisterEmail() {
+    void recoveryPasswordNotRegisterEmail() {
         baseSteps
                 .iOpenBasePageWith(EndpointsUi.PASSWORD_RECOVERY);
         passwordRecoveryPage

@@ -5,7 +5,7 @@ import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.dictionary.ui.Error;
 import com.portnov.env_sky.logic.helpers.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
-import com.portnov.env_sky.logic.pages.HeaderWidget;
+import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.pages.LogInPage;
 import com.portnov.env_sky.logic.steps.BaseSteps;
 import io.qameta.allure.Link;
@@ -26,7 +26,7 @@ public class AuthorizationTests {
 
     @Test
     @Link(value = "Test case TEAM1-58", url = "https://jira.portnov.com/browse/TEAM1-58")
-    void loginValid() {
+    void loginValidAsAdmin() {
         baseSteps
                 .iOpenBasePage();
         headerWidget
@@ -37,7 +37,22 @@ public class AuthorizationTests {
                 .iClickLoginBtn();
         headerWidget
                 .logoutLinkShouldBeVisible()
-                .myAccountLinkShouldBeVisible();
+                .myAccountLinkShouldBeVisible()
+                .administrationLinkShouldBeVisible();
+    }
+
+    @Test
+    void loginValidAsUser() {
+        baseSteps
+                .iOpenBasePageWith(EndpointsUi.LOGIN);
+        logInPage
+                .iTypeEmail(ProjectConfig.credential.userEmail())
+                .iTypePassword(ProjectConfig.credential.userPassword())
+                .iClickLoginBtn();
+        headerWidget
+                .logoutLinkShouldBeVisible()
+                .myAccountLinkShouldBeVisible()
+                .administrationLinkShouldNotBeVisible();
     }
 
     @DisplayName("Invalid login")
@@ -115,10 +130,20 @@ public class AuthorizationTests {
     }
 
     @Test
-    void logout() {
+    void logoutAdmin() {
         baseSteps
                 .iOpenBasePage()
                 .iAddCookieToBrowserAndRefreshPage(ProjectConfig.credential.adminEmail(), ProjectConfig.credential.adminPassword());
+        headerWidget
+                .iClickLogoutLink()
+                .loginBtnShouldBeVisible();
+    }
+
+    @Test
+    void logoutUser() {
+        baseSteps
+                .iOpenBasePage()
+                .iAddCookieToBrowserAndRefreshPage(ProjectConfig.credential.userEmail(), ProjectConfig.credential.userPassword());
         headerWidget
                 .iClickLogoutLink()
                 .loginBtnShouldBeVisible();
