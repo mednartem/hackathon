@@ -7,6 +7,7 @@ import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.steps.AuthSteps;
 import com.portnov.env_sky.logic.steps.BaseSteps;
 import io.qameta.allure.Link;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,8 +22,8 @@ public class AuthorizationTests {
     private final AuthSteps authSteps = new AuthSteps();
 
     @Test
-    @Link("https://jira.portnov.com/browse/TEAM1-58")
-    void test01LoginValid() {
+    @Link(value = "Test case TEAM1-58", url = "https://jira.portnov.com/browse/TEAM1-58")
+    void loginValid() {
         baseSteps
                 .iOpenBasePage();
         authSteps
@@ -33,21 +34,13 @@ public class AuthorizationTests {
                 .accountLinkShouldBeVisibleInTheHeader();
     }
 
-    private static Stream<Arguments> invalidData() {
-        return Stream.of(
-                Arguments.of(ProjectConfig.credential.adminEmail(), RandomData.generatePassword(), Error.LOGIN_UNSUCCESSFUL_INCORRECT_CREDENTIALS),
-                Arguments.of(ProjectConfig.credential.adminEmail(), "", Error.LOGIN_UNSUCCESSFUL_INCORRECT_CREDENTIALS),
-                Arguments.of(RandomData.generateUniqEmail(), ProjectConfig.credential.adminPassword(), Error.LOGIN_UNSUCCESSFUL_NO_CUSTOMER_ACCOUNT_FOUND),
-                Arguments.of(RandomData.generateUniqEmail(), RandomData.generatePassword(), Error.LOGIN_UNSUCCESSFUL_NO_CUSTOMER_ACCOUNT_FOUND)
-        );
-    }
-
-    @ParameterizedTest
-    @Link("https://jira.portnov.com/browse/TEAM1-59")
-    @Link("https://jira.portnov.com/browse/TEAM1-62")
-    @Link("https://jira.portnov.com/browse/TEAM1-65")
+    @DisplayName("Invalid login")
+    @ParameterizedTest(name = "{index} {3} => email=''{0}'', password=''{1}'', errorShouldBe={2}")
+    @Link(value = "Test case TEAM1-59", url = "https://jira.portnov.com/browse/TEAM1-59")
+    @Link(value = "Test case TEAM1-62", url = "https://jira.portnov.com/browse/TEAM1-62")
+    @Link(value = "Test case TEAM1-65", url = "https://jira.portnov.com/browse/TEAM1-65")
     @MethodSource("invalidData")
-    void test02LoginInvalid(String email, String password, Error error) {
+    void loginInvalid(String email, String password, Error error, String displayName) {
         baseSteps
                 .iOpenBasePage();
         authSteps
@@ -58,16 +51,38 @@ public class AuthorizationTests {
                 .messageErrorShouldBe(error);
     }
 
-    private static Stream<Arguments> combineEmptyEmailField() {
+    private static Stream<Arguments> invalidData() {
         return Stream.of(
-                Arguments.of("", RandomData.generatePassword(), Error.PLEASE_ENTER_YOUR_EMAIL),
-                Arguments.of("", "", Error.PLEASE_ENTER_YOUR_EMAIL)
+                Arguments.of(
+                        ProjectConfig.credential.adminEmail(),
+                        RandomData.generatePassword(),
+                        Error.LOGIN_UNSUCCESSFUL_INCORRECT_CREDENTIALS,
+                        "Wrong `Password`"
+                ),
+                Arguments.of(
+                        ProjectConfig.credential.adminEmail(),
+                        "",
+                        Error.LOGIN_UNSUCCESSFUL_INCORRECT_CREDENTIALS,
+                        "Empty `Password`"
+                ),
+                Arguments.of(
+                        RandomData.generateUniqEmail(),
+                        ProjectConfig.credential.adminPassword(),
+                        Error.LOGIN_UNSUCCESSFUL_NO_CUSTOMER_ACCOUNT_FOUND,
+                        "Wrong `Email`"
+                ),
+                Arguments.of(
+                        RandomData.generateUniqEmail(),
+                        RandomData.generatePassword(),
+                        Error.LOGIN_UNSUCCESSFUL_NO_CUSTOMER_ACCOUNT_FOUND,
+                        "Wrong `Email` and `Password`"
+                )
         );
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} {3} => email=''{0}'', password=''{1}'', errorShouldBe={2}")
     @MethodSource("combineEmptyEmailField")
-    void test03LoginWithEmptyFields(String email, String password, Error error) {
+    void loginWithEmptyFields(String email, String password, Error error, String displayName) {
         baseSteps
                 .iOpenBasePage();
         authSteps
@@ -78,8 +93,25 @@ public class AuthorizationTests {
                 .emailFieldShouldHaveError(error);
     }
 
+    private static Stream<Arguments> combineEmptyEmailField() {
+        return Stream.of(
+                Arguments.of(
+                        "",
+                        RandomData.generatePassword(),
+                        Error.PLEASE_ENTER_YOUR_EMAIL,
+                        "Empty `Email` field"
+                ),
+                Arguments.of(
+                        "",
+                        "",
+                        Error.PLEASE_ENTER_YOUR_EMAIL,
+                        "Empty `Email` and `Password` field"
+                )
+        );
+    }
+
     @Test
-    void test04Logout() {
+    void logout() {
         baseSteps
                 .iOpenBasePage()
                 .iAddCookieToBrowserAndRefreshPage(ProjectConfig.credential.adminEmail(), ProjectConfig.credential.adminPassword());

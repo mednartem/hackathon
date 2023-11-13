@@ -3,7 +3,7 @@ package com.portnov.env_sky.logic.steps;
 import com.codeborne.selenide.Selenide;
 import com.portnov.env_sky.logic.rest.AuthorizationApi;
 import io.qameta.allure.Step;
-import com.portnov.env_sky.logic.dictionary.Cookie;
+import com.portnov.env_sky.logic.dictionary.api.Cookie;
 
 public class BaseSteps {
 

@@ -3,7 +3,7 @@ package com.portnov.env_sky.logic.rest;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import com.portnov.env_sky.logic.dictionary.Cookie;
+import com.portnov.env_sky.logic.dictionary.api.Cookie;
 import com.portnov.env_sky.logic.dictionary.api.Params;
 import org.apache.http.HttpStatus;
 import org.jsoup.Jsoup;
