@@ -3,7 +3,7 @@ package com.portnov.env_sky.logic.pages.administration;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class AdministrationCategoryCreatePage {
@@ -30,12 +30,25 @@ public class AdministrationCategoryCreatePage {
         return this;
     }
 
-    @Step("I type name `{name}`")
+    @Step("`Name` field should have value: `{name}`")
+    public AdministrationCategoryCreatePage nameFieldShouldHaveValue(String name) {
+        $("#Name").shouldHave(exactValue(name));
+        return this;
+    }
+
+    @Step("I type description `{description}`")
     public AdministrationCategoryCreatePage iTypeDescription(String description) {
         Selenide.switchTo().frame($("#Description_ifr"));
         $("#tinymce").setValue(description);
         Selenide.switchTo().defaultContent();
         return this;
+    }
+
+    @Step("`Description` field should have text: `{description}`")
+    public void descriptionFieldShouldHaveText(String description) {
+        Selenide.switchTo().frame($("#Description_ifr"));
+        $("#tinymce").shouldHave(exactText(description));
+        Selenide.switchTo().defaultContent();
     }
 
     @Step("I select parent category `{name}`")

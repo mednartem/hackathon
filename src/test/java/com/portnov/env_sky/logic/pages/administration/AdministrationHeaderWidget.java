@@ -9,8 +9,14 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class AdministrationHeaderWidget {
 
-    @Step("I click `{button}` link in the header")
+    @Step("I click `{button}` button in the header")
     public void iClickBtn(AdministrationHeaderButton button) {
         $$(".float-right .btn").filter(visible).find(exactText(button.getValue())).click();
+    }
+
+    @Step("The button `{button}` should be visible in the header")
+    public AdministrationHeaderWidget buttonShouldBeVisible(AdministrationHeaderButton button) {
+        $$(".float-right .btn").filter(visible).find(exactText(button.getValue())).click();
+        return this;
     }
 }

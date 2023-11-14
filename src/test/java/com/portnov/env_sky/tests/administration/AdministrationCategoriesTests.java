@@ -159,4 +159,55 @@ public class AdministrationCategoriesTests {
                 .pageShouldBeOpened()
                 .categoryShouldBeDisplayInTheTable(nameParentCategory + " >> " + nameSubCategory);
     }
+
+    @Test
+    @Link(value = "Test case TEAM1-19", url = "https://jira.portnov.com/browse/TEAM1-19")
+    void addNewCategoryBasicByClickSaveAndContinue() {
+        String name = RandomData.generateNameCategory();
+        String description = RandomData.generateDescriptionCategory();
+
+        baseSteps
+                .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
+        administrationCategoryCreatePage
+                .iTypeName(name)
+                .iTypeDescription(description);
+        administrationHeaderWidget
+                .iClickBtn(AdministrationHeaderButton.SAVE_AND_CONTINUE_EDIT);
+        administrationAlertNotificationWidget
+                .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
+        administrationCategoryCreatePage
+                .pageShouldBeOpened()
+                .nameFieldShouldHaveValue(name)
+                .descriptionFieldShouldHaveText(description);
+        administrationHeaderWidget
+                .buttonShouldBeVisible(AdministrationHeaderButton.PREVIEW)
+                .buttonShouldBeVisible(AdministrationHeaderButton.DELETE);
+    }
+
+    @Test
+    @Link(value = "Test case TEAM1-20", url = "https://jira.portnov.com/browse/TEAM1-20")
+    void addNewCategoryAdvancedByClickSaveAndContinue() {
+        String name = RandomData.generateNameCategory();
+        String description = RandomData.generateDescriptionCategory();
+
+        baseSteps
+                .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
+        administrationCategoryCreatePage
+                .pageShouldBeOpened()
+                .iTypeName(name)
+                .iTypeDescription(description)
+                .iSwitchBasicToAdvanced()
+                .iUploadPicture();
+        administrationHeaderWidget
+                .iClickBtn(AdministrationHeaderButton.SAVE_AND_CONTINUE_EDIT);
+        administrationAlertNotificationWidget
+                .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
+        administrationCategoryCreatePage
+                .pageShouldBeOpened()
+                .nameFieldShouldHaveValue(name)
+                .descriptionFieldShouldHaveText(description);
+        administrationHeaderWidget
+                .buttonShouldBeVisible(AdministrationHeaderButton.PREVIEW)
+                .buttonShouldBeVisible(AdministrationHeaderButton.DELETE);
+    }
 }
