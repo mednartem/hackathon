@@ -68,7 +68,7 @@ public class AdministrationCategoriesTests {
         String description = RandomData.generateDescriptionCategory();
 
 
-        //todo change create category via api/bd
+        //todo need to determine why the category won't appear in the paren category dropdown
         //create category
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
@@ -130,7 +130,7 @@ public class AdministrationCategoriesTests {
         String description = RandomData.generateDescriptionCategory();
 
 
-        //todo change create category via api/bd
+        //todo need to determine why the category won't appear in the paren category dropdown
         //create category
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);

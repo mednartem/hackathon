@@ -2,6 +2,7 @@ package com.portnov.env_sky.logic.jupiter;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.portnov.env_sky.logic.attachments.AttachmentHelpers;
+import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
 import com.portnov.env_sky.logic.driver.DesktopDriver;
 import org.junit.jupiter.api.extension.*;
 
@@ -47,25 +48,6 @@ public class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, 
 
     @Override
     public void close() {
-//        if (started) {
-//            started = false;
-//            PersonClientApi personClientApi = new PersonClientApi();
-//            DailyApi dailyApi = new DailyApi();
-//
-//            DailyRoomsModel rooms = dailyApi.getRooms();
-//
-//            for (RoomsItem room : rooms.getRooms()) {
-//                dailyApi.deleteRoom(room.getId());
-//            }
-//
-//            personClientApi.paypalDisconnect();
-//
-//            for (int i = 0; i < 3; i++) {
-//                int left = personClientApi.deleteUsers();
-//                if (left == 0) {
-//                    return;
-//                }
-//            }
-//        }
+        new CategoryDAOJdbc().deleteAll("autotest%");
     }
 }

@@ -37,7 +37,8 @@ dependencies {
             "io.qameta.allure:allure-rest-assured:${allureVersion}",
             "org.aspectj:aspectjrt:${aspectJVersion}",
             "org.aspectj:aspectjweaver:${aspectJVersion}",
-            "org.aeonbits.owner:owner:1.0.12"
+            "org.aeonbits.owner:owner:1.0.12",
+            'com.microsoft.sqlserver:mssql-jdbc:12.4.2.jre11'
     )
     testRuntimeOnly(
             "ch.qos.logback:logback-classic:1.4.7"
