@@ -5,9 +5,10 @@ import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.dictionary.ui.Error;
 import com.portnov.env_sky.logic.helpers.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
-import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.pages.LogInPage;
+import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.steps.BaseSteps;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+@Epic("Authorization")
 @WebTest
 public class AuthorizationTests {
 

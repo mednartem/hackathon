@@ -10,9 +10,11 @@ import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.pages.LogInPage;
 import com.portnov.env_sky.logic.pages.PasswordRecoveryPage;
 import com.portnov.env_sky.logic.steps.BaseSteps;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.Test;
 
+@Epic("Recovery password")
 @WebTest
 public class RecoveryPasswordTests {
 

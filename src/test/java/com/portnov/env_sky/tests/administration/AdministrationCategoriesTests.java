@@ -8,9 +8,15 @@ import com.portnov.env_sky.logic.helpers.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.*;
 import com.portnov.env_sky.logic.steps.BaseSteps;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
 
+@Epic("Administration")
+@Feature("Catalog")
+@Story("Categories")
 @WebTest
 public class AdministrationCategoriesTests {
 

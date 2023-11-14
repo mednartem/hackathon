@@ -8,9 +8,11 @@ import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.pages.RegisterPage;
 import com.portnov.env_sky.logic.steps.BaseSteps;
+import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.Test;
 
+@Epic("Registration")
 @WebTest
 public class RegistrationTests {
 
