@@ -20,19 +20,31 @@ public class RandomData {
         return randomAlphabetic(count);
     }
 
+    private static String templateAutotestGenerate(String entity) {
+        return "autotest " + entity + ": " + randomAlphabetic(5);
+    }
+
     public static String generateNameCategory() {
-        return "autotest category: " + randomAlphabetic(5);
+        return templateAutotestGenerate("category");
     }
 
     public static String generateDescriptionCategory() {
-        return "autotest description category: " + randomAlphabetic(10);
+        return templateAutotestGenerate("description category");
     }
 
     public static String generateNameProduct() {
-        return "autotest product: " + randomAlphabetic(5);
+        return templateAutotestGenerate("product");
     }
 
     public static String generateDescriptionProduct() {
-        return "autotest description product: " + randomAlphabetic(10);
+        return templateAutotestGenerate("description product");
+    }
+
+    public static String generateNameManufacturer() {
+        return templateAutotestGenerate("manufacturer");
+    }
+
+    public static String generateDescriptionManufacturer() {
+        return templateAutotestGenerate("description manufacturer");
     }
 }

@@ -4,7 +4,9 @@ public enum AdministrationAlertNotification {
     THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY("The new category has been added successfully."),
     THE_CATEGORY_HAS_BEEN_DELETED_SUCCESSFULLY(" The category has been deleted successfully."),
     THE_NEW_PRODUCT_HAS_BEEN_ADDED_SUCCESSFULLY("The new product has been added successfully."),
-    THE_PRODUCT_HAS_BEEN_DELETED_SUCCESSFULLY("The product has been deleted successfully.");
+    THE_PRODUCT_HAS_BEEN_DELETED_SUCCESSFULLY("The product has been deleted successfully."),
+    THE_NEW_MANUFACTURER_HAS_BEEN_ADDED_SUCCESSFULLY("The new manufacturer has been added successfully."),
+    THE_MANUFACTURER_HAS_BEEN_DELETED_SUCCESSFULLY("The manufacturer has been deleted successfully.");
 
     private final String value;
 

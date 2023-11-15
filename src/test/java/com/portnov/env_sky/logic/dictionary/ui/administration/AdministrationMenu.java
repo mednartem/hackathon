@@ -3,7 +3,8 @@ package com.portnov.env_sky.logic.dictionary.ui.administration;
 public enum AdministrationMenu {
     CATALOG("Catalog "),
     CATEGORIES("Categories"),
-    PRODUCTS("Products");
+    PRODUCTS("Products"),
+    MANUFACTURERS("Manufacturers");
 
     private final String value;
 

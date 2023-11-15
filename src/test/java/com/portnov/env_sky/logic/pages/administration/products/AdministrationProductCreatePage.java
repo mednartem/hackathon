@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class AdministrationProductCreatePage {
 
-    @Step("`Categories` page should be opened`")
+    @Step("`Create product` page should be opened`")
     public void pageShouldBeOpened() {
         $("#product-cards").shouldBe(visible);
     }
