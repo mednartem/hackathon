@@ -222,7 +222,7 @@ public class ProductDAOJdbc implements ProductDAO {
         try (Connection connection = ds.getConnection();
              Statement statement = connection.createStatement()) {
 
-            statement.execute("DELETE from Product WHERE Name LIKE + '" + patternName + "'");
+            statement.execute("DELETE FROM Product WHERE Name LIKE + '" + patternName + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         }

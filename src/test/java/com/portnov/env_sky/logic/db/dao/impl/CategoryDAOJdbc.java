@@ -84,7 +84,7 @@ public class CategoryDAOJdbc implements CategoryDAO {
         try (Connection connection = ds.getConnection();
              Statement statement = connection.createStatement()) {
 
-            statement.execute("DELETE from Category WHERE Name LIKE + '" + patternName + "'");
+            statement.execute("DELETE FROM Category WHERE Name LIKE + '" + patternName + "'");
         } catch (SQLException e) {
             e.printStackTrace();
         }
