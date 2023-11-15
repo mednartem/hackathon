@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.pages.administration;
+package com.portnov.env_sky.logic.pages.administration.categories;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;

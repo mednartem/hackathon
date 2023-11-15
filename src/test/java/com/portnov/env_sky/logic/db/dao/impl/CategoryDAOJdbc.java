@@ -74,7 +74,7 @@ public class CategoryDAOJdbc implements CategoryDAO {
     }
 
     public CategoryModel create() {
-        CategoryModel categoryModel = new FillCategoryModel().fill();
+        CategoryModel categoryModel = new FillCategoryModel().fillRequiredFields();
         create(categoryModel);
         return categoryModel;
     }

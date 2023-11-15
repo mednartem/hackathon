@@ -1,6 +1,7 @@
 package com.portnov.env_sky.logic.db.model;
 
 public class CategoryModel {
+    private int id;
     private String name;
     private String description;
     private int parentCategoryId;
@@ -22,6 +23,10 @@ public class CategoryModel {
     private int priceRangeFiltering;
     private int priceFrom;
     private int priceTo;
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

@@ -27,4 +27,12 @@ public class RandomData {
     public static String generateDescriptionCategory() {
         return "autotest description category: " + randomAlphabetic(10);
     }
+
+    public static String generateNameProduct() {
+        return "autotest product: " + randomAlphabetic(5);
+    }
+
+    public static String generateDescriptionProduct() {
+        return "autotest description product: " + randomAlphabetic(10);
+    }
 }

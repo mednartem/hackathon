@@ -5,7 +5,7 @@ import com.portnov.env_sky.logic.helpers.Time;
 
 public class FillCategoryModel {
 
-    public CategoryModel fill() {
+    public CategoryModel fillRequiredFields() {
         CategoryModel categoryModel = new CategoryModel();
         categoryModel.setName(RandomData.generateNameCategory());
         categoryModel.setDescription(RandomData.generateDescriptionCategory());

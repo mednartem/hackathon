@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.pages.administration;
+package com.portnov.env_sky.logic.pages.administration.widgets;
 
 import com.portnov.env_sky.logic.dictionary.ui.administration.AdministrationMenu;
 import io.qameta.allure.Step;
