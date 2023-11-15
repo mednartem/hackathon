@@ -1,9 +1,7 @@
 package com.portnov.env_sky.tests.administration;
 
-import com.portnov.env_sky.logic.dictionary.ui.administration.AdministrationAlertNotification;
-import com.portnov.env_sky.logic.dictionary.ui.administration.AdministrationEndpointUi;
-import com.portnov.env_sky.logic.dictionary.ui.administration.AdministrationHeaderButton;
-import com.portnov.env_sky.logic.dictionary.ui.administration.AdministrationMenu;
+import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
+import com.portnov.env_sky.logic.dictionary.ui.administration.*;
 import com.portnov.env_sky.logic.helpers.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.*;
@@ -26,6 +24,8 @@ public class AdministrationCategoriesTests {
     private final AdministrationMenuWidget administrationMenuWidget = new AdministrationMenuWidget();
     private final AdministrationHeaderWidget administrationHeaderWidget = new AdministrationHeaderWidget();
     private final AdministrationAlertNotificationWidget administrationAlertNotificationWidget = new AdministrationAlertNotificationWidget();
+    private final AdministrationModalWidget administrationModalWidget = new AdministrationModalWidget();
+    private final CategoryDAOJdbc categoryDAOJdbc = new CategoryDAOJdbc();
 
     @Test
     void openCategoriesPage() {
@@ -215,5 +215,43 @@ public class AdministrationCategoriesTests {
         administrationHeaderWidget
                 .buttonShouldBeVisible(AdministrationHeaderButton.PREVIEW)
                 .buttonShouldBeVisible(AdministrationHeaderButton.DELETE);
+    }
+
+    @Test
+    @Link(value = "Test case TEAM1-41", url = "https://jira.portnov.com/browse/TEAM1-41")
+    void deleteCategoryFromEditForm() {
+        String nameCategory = categoryDAOJdbc.create().getName();
+
+        baseSteps
+                .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
+        administrationCategoriesPage
+                .clickEditBtnAtTheCategory(nameCategory);
+        administrationCategoryCreatePage
+                .pageShouldBeOpened();
+        administrationHeaderWidget
+                .iClickBtn(AdministrationHeaderButton.DELETE);
+        administrationModalWidget
+                .iClickBtn(AdministrationModalButton.DELETE);
+        administrationAlertNotificationWidget
+                .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_CATEGORY_HAS_BEEN_DELETED_SUCCESSFULLY);
+        administrationCategoriesPage
+                .categoryShouldNotBeDisplayInTheTable(nameCategory);
+    }
+
+    @Test
+    @Link(value = "Test case TEAM1-42", url = "https://jira.portnov.com/browse/TEAM1-42")
+    void deleteCategoryFromCategoriesPage() {
+        String nameCategory = categoryDAOJdbc.create().getName();
+
+        baseSteps
+                .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
+        administrationCategoriesPage
+                .selectCheckboxAtTheCategory(nameCategory);
+        administrationHeaderWidget
+                .iClickBtn(AdministrationHeaderButton.DELETE_SELECTED);
+        administrationModalWidget
+                .iClickBtn(AdministrationModalButton.YES);
+        administrationCategoriesPage
+                .categoryShouldNotBeDisplayInTheTable(nameCategory);
     }
 }

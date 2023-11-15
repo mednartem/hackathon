@@ -5,7 +5,8 @@ public enum AdministrationHeaderButton {
     SAVE(" Save "),
     SAVE_AND_CONTINUE_EDIT(" Save and Continue Edit "),
     PREVIEW(" Preview "),
-    DELETE(" Delete ");
+    DELETE(" Delete "),
+    DELETE_SELECTED(" Delete (selected) ");
     private final String value;
 
     AdministrationHeaderButton(String value) {
