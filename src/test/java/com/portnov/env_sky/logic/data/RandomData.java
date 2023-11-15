@@ -1,15 +1,17 @@
-package com.portnov.env_sky.logic.helpers;
+package com.portnov.env_sky.logic.data;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class RandomData {
+    public static final String PATTER_EMAIL = "@test.test";
+    public static final String PATTER_DATA = "autotest ";
 
     public static String randomAlphabetic(final int symbolsCount) {
         return RandomStringUtils.randomAlphabetic(symbolsCount);
     }
 
     public static String generateUniqEmail() {
-        return randomAlphabetic(15).concat("@test.test").toLowerCase();
+        return randomAlphabetic(15).concat(PATTER_EMAIL).toLowerCase();
     }
 
     public static String generatePassword() {
@@ -21,7 +23,7 @@ public class RandomData {
     }
 
     private static String templateAutotestGenerate(String entity) {
-        return "autotest " + entity + ": " + randomAlphabetic(5);
+        return PATTER_DATA + entity + ": " + randomAlphabetic(5);
     }
 
     public static String generateNameCategory() {
@@ -46,5 +48,13 @@ public class RandomData {
 
     public static String generateDescriptionManufacturer() {
         return templateAutotestGenerate("description manufacturer");
+    }
+
+    public static String generateNameProductAttribute() {
+        return templateAutotestGenerate("product attribute");
+    }
+
+    public static String generateDescriptionProductAttribute() {
+        return templateAutotestGenerate("description product attribute");
     }
 }

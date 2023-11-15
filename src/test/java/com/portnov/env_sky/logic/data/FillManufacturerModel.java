@@ -1,7 +1,6 @@
-package com.portnov.env_sky.logic.db.model;
+package com.portnov.env_sky.logic.data;
 
-import com.portnov.env_sky.logic.helpers.RandomData;
-import com.portnov.env_sky.logic.helpers.Time;
+import com.portnov.env_sky.logic.db.model.ManufacturerModel;
 
 public class FillManufacturerModel {
 

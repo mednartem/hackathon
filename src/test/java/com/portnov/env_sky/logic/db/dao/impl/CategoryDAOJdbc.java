@@ -5,7 +5,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.CategoryDAO;
 import com.portnov.env_sky.logic.db.model.CategoryModel;
-import com.portnov.env_sky.logic.db.model.FillCategoryModel;
+import com.portnov.env_sky.logic.data.FillCategoryModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

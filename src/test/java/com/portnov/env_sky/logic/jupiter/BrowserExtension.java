@@ -4,8 +4,10 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.portnov.env_sky.logic.attachments.AttachmentHelpers;
 import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
 import com.portnov.env_sky.logic.db.dao.impl.ManufacturerDAOJdbc;
+import com.portnov.env_sky.logic.db.dao.impl.ProductAttributesDAOJdbc;
 import com.portnov.env_sky.logic.db.dao.impl.ProductDAOJdbc;
 import com.portnov.env_sky.logic.driver.DesktopDriver;
+import com.portnov.env_sky.logic.data.RandomData;
 import org.junit.jupiter.api.extension.*;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -50,10 +52,11 @@ public class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, 
 
     @Override
     public void close() {
-        String pattern = "autotest%";
+        String pattern = RandomData.PATTER_DATA.trim() + "%";
 
         new CategoryDAOJdbc().deleteAll(pattern);
         new ProductDAOJdbc().deleteAll(pattern);
         new ManufacturerDAOJdbc().deleteAll(pattern);
+        new ProductAttributesDAOJdbc().deleteAll(pattern);
     }
 }

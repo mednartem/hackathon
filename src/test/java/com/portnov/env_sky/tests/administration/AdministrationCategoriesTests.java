@@ -2,7 +2,7 @@ package com.portnov.env_sky.tests.administration;
 
 import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
 import com.portnov.env_sky.logic.dictionary.ui.administration.*;
-import com.portnov.env_sky.logic.helpers.RandomData;
+import com.portnov.env_sky.logic.data.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.categories.AdministrationCategoriesPage;
 import com.portnov.env_sky.logic.pages.administration.categories.AdministrationCategoryCreatePage;

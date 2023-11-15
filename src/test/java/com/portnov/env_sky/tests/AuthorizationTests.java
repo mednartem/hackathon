@@ -3,7 +3,7 @@ package com.portnov.env_sky.tests;
 import com.portnov.env_sky.logic.config.ProjectConfig;
 import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.dictionary.ui.Error;
-import com.portnov.env_sky.logic.helpers.RandomData;
+import com.portnov.env_sky.logic.data.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.LogInPage;
 import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;

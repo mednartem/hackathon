@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.helpers;
+package com.portnov.env_sky.logic.data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

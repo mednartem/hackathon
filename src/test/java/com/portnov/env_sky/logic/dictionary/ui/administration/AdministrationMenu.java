@@ -4,7 +4,9 @@ public enum AdministrationMenu {
     CATALOG("Catalog "),
     CATEGORIES("Categories"),
     PRODUCTS("Products"),
-    MANUFACTURERS("Manufacturers");
+    MANUFACTURERS("Manufacturers"),
+    ATTRIBUTES("Attributes "),
+    PRODUCT_ATTRIBUTES("Product attributes");
 
     private final String value;
 

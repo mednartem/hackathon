@@ -2,7 +2,7 @@ package com.portnov.env_sky.tests.administration;
 
 import com.portnov.env_sky.logic.db.dao.impl.ManufacturerDAOJdbc;
 import com.portnov.env_sky.logic.dictionary.ui.administration.*;
-import com.portnov.env_sky.logic.helpers.RandomData;
+import com.portnov.env_sky.logic.data.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.manufacturer.AdministrationManufacturerCreatePage;
 import com.portnov.env_sky.logic.pages.administration.manufacturer.AdministrationManufacturersPage;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 @Epic("Administration")
 @Feature("Catalog")
-@Story("Products")
+@Story("Manufacturer")
 @WebTest
 public class AdministrationManufacturesTests {
 

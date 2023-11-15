@@ -23,7 +23,7 @@ public class AdministrationManufacturersPage {
     @Step("The Manufacturer with `{name}` should not display in the table")
     public void manufacturerShouldNotBeDisplayInTheTable(String name) {
         elTable.$$("tr").shouldBe(noneMatch(
-                "The table doesn't have the product with name: " + name,
+                "The table doesn't have the manufacturer with name: " + name,
                 el -> el.getText().contains(name)
         ));
     }

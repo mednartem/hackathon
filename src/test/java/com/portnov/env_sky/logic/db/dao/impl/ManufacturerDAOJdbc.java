@@ -4,7 +4,7 @@ package com.portnov.env_sky.logic.db.dao.impl;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ManufacturerDAO;
-import com.portnov.env_sky.logic.db.model.FillManufacturerModel;
+import com.portnov.env_sky.logic.data.FillManufacturerModel;
 import com.portnov.env_sky.logic.db.model.ManufacturerModel;
 
 import java.sql.Connection;
