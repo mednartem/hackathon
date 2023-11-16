@@ -1,12 +1,12 @@
 package com.portnov.env_sky.tests;
 
+import com.portnov.env_sky.logic.data.RandomData;
 import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.dictionary.ui.Error;
 import com.portnov.env_sky.logic.dictionary.ui.Message;
-import com.portnov.env_sky.logic.data.RandomData;
 import com.portnov.env_sky.logic.jupiter.WebTest;
-import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.pages.RegisterPage;
+import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
 import com.portnov.env_sky.logic.steps.BaseSteps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Link;

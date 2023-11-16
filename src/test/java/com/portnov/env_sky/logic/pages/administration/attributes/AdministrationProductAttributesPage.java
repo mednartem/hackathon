@@ -33,7 +33,7 @@ public class AdministrationProductAttributesPage {
         elTable.$x(String.format(".//td[text()='%s']", name)).closest("tr").find(".btn").click();
     }
 
-    @Step("I select checkbox at the product with `{name}`")
+    @Step("I select checkbox at the product attribute with `{name}`")
     public void selectCheckboxAtTheProductAttribute(String name) {
         elTable.$x(String.format(".//td[text()='%s']", name)).closest("tr").find("[name=checkbox_productattributes]").click();
     }

@@ -57,4 +57,12 @@ public class RandomData {
     public static String generateDescriptionProductAttribute() {
         return templateAutotestGenerate("description product attribute");
     }
+
+    public static String generateNameCheckoutAttribute() {
+        return templateAutotestGenerate("checkout attribute");
+    }
+
+    public static String generateDescriptionCheckoutAttribute() {
+        return templateAutotestGenerate("description checkout attribute");
+    }
 }

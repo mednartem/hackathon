@@ -2,7 +2,7 @@ package com.portnov.env_sky.logic.pages.administration.products;
 
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class AdministrationProductCreatePage {

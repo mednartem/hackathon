@@ -1,13 +1,7 @@
 package com.portnov.env_sky.logic.jupiter;
 
-import com.portnov.env_sky.logic.db.dao.CategoryDAO;
-import com.portnov.env_sky.logic.db.dao.ManufacturerDAO;
-import com.portnov.env_sky.logic.db.dao.ProductAttributesDAO;
-import com.portnov.env_sky.logic.db.dao.ProductDAO;
-import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
-import com.portnov.env_sky.logic.db.dao.impl.ManufacturerDAOJdbc;
-import com.portnov.env_sky.logic.db.dao.impl.ProductAttributesDAOJdbc;
-import com.portnov.env_sky.logic.db.dao.impl.ProductDAOJdbc;
+import com.portnov.env_sky.logic.db.dao.*;
+import com.portnov.env_sky.logic.db.dao.impl.*;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
@@ -20,7 +14,8 @@ public class DaoExtension implements TestInstancePostProcessor {
             CategoryDAO.class, CategoryDAOJdbc.class,
             ManufacturerDAO.class, ManufacturerDAOJdbc.class,
             ProductDAO.class, ProductDAOJdbc.class,
-            ProductAttributesDAO.class, ProductAttributesDAOJdbc.class
+            ProductAttributesDAO.class, ProductAttributesDAOJdbc.class,
+            CheckoutAttributesDAO.class, CheckoutAttributesDAOJdbc.class
     );
 
     @Override

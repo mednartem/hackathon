@@ -2,12 +2,9 @@ package com.portnov.env_sky.logic.jupiter;
 
 import com.codeborne.selenide.WebDriverRunner;
 import com.portnov.env_sky.logic.attachments.AttachmentHelpers;
-import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
-import com.portnov.env_sky.logic.db.dao.impl.ManufacturerDAOJdbc;
-import com.portnov.env_sky.logic.db.dao.impl.ProductAttributesDAOJdbc;
-import com.portnov.env_sky.logic.db.dao.impl.ProductDAOJdbc;
-import com.portnov.env_sky.logic.driver.DesktopDriver;
 import com.portnov.env_sky.logic.data.RandomData;
+import com.portnov.env_sky.logic.db.dao.impl.*;
+import com.portnov.env_sky.logic.driver.DesktopDriver;
 import org.junit.jupiter.api.extension.*;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -58,5 +55,6 @@ public class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, 
         new ProductDAOJdbc().deleteAll(pattern);
         new ManufacturerDAOJdbc().deleteAll(pattern);
         new ProductAttributesDAOJdbc().deleteAll(pattern);
+        new CheckoutAttributesDAOJdbc().deleteAll(pattern);
     }
 }
