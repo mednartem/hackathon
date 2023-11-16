@@ -15,7 +15,8 @@ public class DaoExtension implements TestInstancePostProcessor {
             ManufacturerDAO.class, ManufacturerDAOJdbc.class,
             ProductDAO.class, ProductDAOJdbc.class,
             ProductAttributesDAO.class, ProductAttributesDAOJdbc.class,
-            CheckoutAttributesDAO.class, CheckoutAttributesDAOJdbc.class
+            CheckoutAttributesDAO.class, CheckoutAttributesDAOJdbc.class,
+            CustomerDAO.class, CustomerDAOJdbc.class
     );
 
     @Override

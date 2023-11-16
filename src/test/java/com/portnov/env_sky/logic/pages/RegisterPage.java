@@ -101,8 +101,7 @@ public class RegisterPage {
     }
 
     @Step("The confirm password field should have the error `{error}`")
-    public RegisterPage confirmPasswordFieldShouldHaveError(Error error) {
+    public void confirmPasswordFieldShouldHaveError(Error error) {
         $("#ConfirmPassword-error").shouldHave(exactText(error.getValue()));
-        return this;
     }
 }

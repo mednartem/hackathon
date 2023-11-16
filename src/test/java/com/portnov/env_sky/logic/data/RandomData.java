@@ -2,8 +2,10 @@ package com.portnov.env_sky.logic.data;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.util.UUID;
+
 public class RandomData {
-    public static final String PATTER_EMAIL = "@test.test";
+    public static final String PATTER_EMAIL = "_autotest@test.test";
     public static final String PATTER_DATA = "autotest ";
 
     public static String randomAlphabetic(final int symbolsCount) {
@@ -16,6 +18,9 @@ public class RandomData {
 
     public static String generatePassword() {
         return generateString(10);
+    }
+    public static UUID generateUUID() {
+        return UUID.randomUUID();
     }
 
     public static String generateString(int count) {
@@ -64,5 +69,17 @@ public class RandomData {
 
     public static String generateDescriptionCheckoutAttribute() {
         return templateAutotestGenerate("description checkout attribute");
+    }
+
+    public static String generateFirstName() {
+        return templateAutotestGenerate("first name");
+    }
+
+    public static String generateLastName() {
+        return templateAutotestGenerate("last name");
+    }
+
+    public static String generateCompanyName() {
+        return templateAutotestGenerate("company name");
     }
 }

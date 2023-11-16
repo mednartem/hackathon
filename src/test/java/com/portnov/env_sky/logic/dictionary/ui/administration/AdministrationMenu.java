@@ -7,7 +7,8 @@ public enum AdministrationMenu {
     MANUFACTURERS("Manufacturers"),
     ATTRIBUTES("Attributes "),
     PRODUCT_ATTRIBUTES("Product attributes"),
-    CHECKOUT_ATTRIBUTES("Checkout attributes");
+    CHECKOUT_ATTRIBUTES("Checkout attributes"),
+    CUSTOMERS("Customers");
 
     private final String value;
 

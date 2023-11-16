@@ -49,12 +49,13 @@ public class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, 
 
     @Override
     public void close() {
-        String pattern = RandomData.PATTER_DATA.trim() + "%";
+        String patternData = RandomData.PATTER_DATA;
 
-        new CategoryDAOJdbc().deleteAll(pattern);
-        new ProductDAOJdbc().deleteAll(pattern);
-        new ManufacturerDAOJdbc().deleteAll(pattern);
-        new ProductAttributesDAOJdbc().deleteAll(pattern);
-        new CheckoutAttributesDAOJdbc().deleteAll(pattern);
+        new CategoryDAOJdbc().deleteAll(patternData);
+        new ProductDAOJdbc().deleteAll(patternData);
+        new ManufacturerDAOJdbc().deleteAll(patternData);
+        new ProductAttributesDAOJdbc().deleteAll(patternData);
+        new CheckoutAttributesDAOJdbc().deleteAll(patternData);
+        new CustomerDAOJdbc().deleteAll(RandomData.PATTER_EMAIL);
     }
 }

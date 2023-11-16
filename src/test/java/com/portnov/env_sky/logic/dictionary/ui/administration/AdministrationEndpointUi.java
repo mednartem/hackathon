@@ -8,4 +8,5 @@ public class AdministrationEndpointUi {
     public static final String CATALOG_MANUFACTURER = "/Admin/Manufacturer/List";
     public static final String CATALOG_PRODUCT_ATTRIBUTE = "/Admin/ProductAttribute/List";
     public static final String CHECKOUT_ATTRIBUTE_LIST = "/Admin/CheckoutAttribute/List";
+    public static final String CUSTOMERS_CUSTOMERS_LIST = "/Admin/Customer/List";
 }

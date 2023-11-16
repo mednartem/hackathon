@@ -14,4 +14,10 @@ public class AdministrationMenuWidget {
         $$("[role=menu] .nav-link").filter(visible).find(exactText(menu.getValue())).click();
         return this;
     }
+
+    @Step("I click submenu {menu}")
+    public AdministrationMenuWidget iClickSubMenu(AdministrationMenu menu) {
+        $$("[role=menu] ul .nav-link").filter(visible).find(exactText(menu.getValue())).click();
+        return this;
+    }
 }

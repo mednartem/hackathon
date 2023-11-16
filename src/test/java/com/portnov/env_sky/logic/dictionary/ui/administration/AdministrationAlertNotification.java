@@ -8,7 +8,9 @@ public enum AdministrationAlertNotification {
     THE_NEW_MANUFACTURER_HAS_BEEN_ADDED_SUCCESSFULLY("The new manufacturer has been added successfully."),
     THE_MANUFACTURER_HAS_BEEN_DELETED_SUCCESSFULLY("The manufacturer has been deleted successfully."),
     THE_NEW_ATTRIBUTE_HAS_BEEN_ADDED_SUCCESSFULLY("The new attribute has been added successfully."),
-    THE_ATTRIBUTE_HAS_BEEN_DELETED_SUCCESSFULLY("The attribute has been deleted successfully.");
+    THE_ATTRIBUTE_HAS_BEEN_DELETED_SUCCESSFULLY("The attribute has been deleted successfully."),
+    THE_NEW_CUSTOMER_HAS_BEEN_ADDED_SUCCESSFULLY("The new customer has been added successfully."),
+    THE_CUSTOMER_HAS_BEEN_DELETED_SUCCESSFULLY("The customer has been deleted successfully.");
 
     private final String value;
 
