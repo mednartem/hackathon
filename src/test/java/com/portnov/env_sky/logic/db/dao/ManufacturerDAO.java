@@ -1,10 +1,10 @@
 package com.portnov.env_sky.logic.db.dao;
 
-import com.portnov.env_sky.logic.db.model.ManufacturerModel;
+import com.portnov.env_sky.logic.db.model.ManufacturerEntity;
 
 public interface ManufacturerDAO {
 
-    void create(ManufacturerModel categoryModel);
+    void create(ManufacturerEntity categoryModel);
 
     void deleteAll(String patternName);
 }

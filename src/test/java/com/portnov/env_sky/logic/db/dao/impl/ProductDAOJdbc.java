@@ -4,8 +4,8 @@ package com.portnov.env_sky.logic.db.dao.impl;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ProductDAO;
-import com.portnov.env_sky.logic.data.FillProductModel;
-import com.portnov.env_sky.logic.db.model.ProductModel;
+import com.portnov.env_sky.logic.data.FillProductModelEntity;
+import com.portnov.env_sky.logic.db.model.ProductEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class ProductDAOJdbc implements ProductDAO {
     private static SQLServerDataSource ds = ServiceDB.INSTANCE.getDataSource();
 
     @Override
-    public void create(ProductModel productModel) {
+    public void create(ProductEntity productEntity) {
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement("INSERT INTO Product (" +
                      "Name," +
@@ -118,91 +118,91 @@ public class ProductDAOJdbc implements ProductDAO {
                          "?, ?, ?, ?, ?" +
                      ")")
         ) {
-            ps.setString(1, productModel.getName());
-            ps.setString(2, productModel.getShortDescription());
-            ps.setInt(3, productModel.getParentGroupedProductId());
-            ps.setInt(4, productModel.getProductTypeId());
-            ps.setInt(5, productModel.getVisibleIndividually());
-            ps.setInt(6, productModel.getProductTemplateId());
-            ps.setInt(7, productModel.getVendorId());
-            ps.setInt(8, productModel.getShowOnHomepage());
-            ps.setInt(9, productModel.getAllowCustomerReviews());
-            ps.setInt(10, productModel.getApprovedRatingSum());
-            ps.setInt(11, productModel.getNotApprovedRatingSum());
-            ps.setInt(12, productModel.getApprovedTotalReviews());
-            ps.setInt(13, productModel.getNotApprovedTotalReviews());
-            ps.setInt(14, productModel.getSubjectToAcl());
-            ps.setInt(15, productModel.getLimitedToStores());
-            ps.setInt(16, productModel.getIsGiftCard());
-            ps.setInt(17, productModel.getGiftCardTypeId());
-            ps.setInt(18, productModel.getRequireOtherProducts());
-            ps.setInt(19, productModel.getAutomaticallyAddRequiredProducts());
-            ps.setInt(20, productModel.getIsDownload());
-            ps.setInt(21, productModel.getDownloadId());
-            ps.setInt(22, productModel.getUnlimitedDownloads());
-            ps.setInt(23, productModel.getMaxNumberOfDownloads());
-            ps.setInt(24, productModel.getDownloadActivationTypeId());
-            ps.setInt(25, productModel.getHasSampleDownload());
-            ps.setInt(26, productModel.getSampleDownloadId());
-            ps.setInt(27, productModel.getHasUserAgreement());
-            ps.setInt(28, productModel.getIsRecurring());
-            ps.setInt(29, productModel.getRecurringCycleLength());
-            ps.setInt(30, productModel.getRecurringCyclePeriodId());
-            ps.setInt(31, productModel.getRecurringTotalCycles());
-            ps.setInt(32, productModel.getIsRental());
-            ps.setInt(33, productModel.getRentalPriceLength());
-            ps.setInt(34, productModel.getRentalPricePeriodId());
-            ps.setInt(35, productModel.getIsShipEnabled());
-            ps.setInt(36, productModel.getIsFreeShipping());
-            ps.setInt(37, productModel.getShipSeparately());
-            ps.setDouble(38, productModel.getAdditionalShippingCharge());
-            ps.setInt(39, productModel.getDeliveryDateId());
-            ps.setInt(40, productModel.getIsTaxExempt());
-            ps.setInt(41, productModel.getTaxCategoryId());
-            ps.setInt(42, productModel.getIsTelecommunicationsOrBroadcastingOrElectronicServices());
-            ps.setInt(43, productModel.getManageInventoryMethodId());
-            ps.setInt(44, productModel.getProductAvailabilityRangeId());
-            ps.setInt(45, productModel.getUseMultipleWarehouses());
-            ps.setInt(46, productModel.getWarehouseId());
-            ps.setInt(47, productModel.getStockQuantity());
-            ps.setInt(48, productModel.getDisplayStockAvailability());
-            ps.setInt(49, productModel.getDisplayStockQuantity());
-            ps.setInt(50, productModel.getMinStockQuantity());
-            ps.setInt(51, productModel.getLowStockActivityId());
-            ps.setInt(52, productModel.getNotifyAdminForQuantityBelow());
-            ps.setInt(53, productModel.getBackorderModeId());
-            ps.setInt(54, productModel.getAllowBackInStockSubscriptions());
-            ps.setInt(55, productModel.getOrderMinimumQuantity());
-            ps.setInt(56, productModel.getOrderMaximumQuantity());
-            ps.setInt(57, productModel.getAllowAddingOnlyExistingAttributeCombinations());
-            ps.setInt(58, productModel.getNotReturnable());
-            ps.setInt(59, productModel.getDisableBuyButton());
-            ps.setInt(60, productModel.getDisableWishlistButton());
-            ps.setInt(61, productModel.getAvailableForPreOrder());
-            ps.setInt(62, productModel.getCallForPrice());
-            ps.setDouble(63, productModel.getPrice());
-            ps.setDouble(64, productModel.getOldPrice());
-            ps.setDouble(65, productModel.getProductCost());
-            ps.setInt(66, productModel.getCustomerEntersPrice());
-            ps.setDouble(67, productModel.getMinimumCustomerEnteredPrice());
-            ps.setDouble(68, productModel.getMaximumCustomerEnteredPrice());
-            ps.setInt(69, productModel.getBasePriceEnabled());
-            ps.setDouble(70, productModel.getBasePriceAmount());
-            ps.setInt(71, productModel.getBasePriceUnitId());
-            ps.setDouble(72, productModel.getBasePriceBaseAmount());
-            ps.setInt(73, productModel.getBasePriceBaseUnitId());
-            ps.setInt(74, productModel.getMarkAsNew());
-            ps.setInt(75, productModel.getHasTierPrices());
-            ps.setInt(76, productModel.getHasDiscountsApplied());
-            ps.setDouble(77, productModel.getWeight());
-            ps.setDouble(78, productModel.getLength());
-            ps.setDouble(79, productModel.getWidth());
-            ps.setDouble(80, productModel.getHeight());
-            ps.setInt(81, productModel.getDisplayOrder());
-            ps.setInt(82, productModel.getPublished());
-            ps.setInt(83, productModel.getDeleted());
-            ps.setString(84, productModel.getCreatedOnUtc());
-            ps.setString(85, productModel.getUpdatedOnUtc());
+            ps.setString(1, productEntity.getName());
+            ps.setString(2, productEntity.getShortDescription());
+            ps.setInt(3, productEntity.getParentGroupedProductId());
+            ps.setInt(4, productEntity.getProductTypeId());
+            ps.setInt(5, productEntity.getVisibleIndividually());
+            ps.setInt(6, productEntity.getProductTemplateId());
+            ps.setInt(7, productEntity.getVendorId());
+            ps.setInt(8, productEntity.getShowOnHomepage());
+            ps.setInt(9, productEntity.getAllowCustomerReviews());
+            ps.setInt(10, productEntity.getApprovedRatingSum());
+            ps.setInt(11, productEntity.getNotApprovedRatingSum());
+            ps.setInt(12, productEntity.getApprovedTotalReviews());
+            ps.setInt(13, productEntity.getNotApprovedTotalReviews());
+            ps.setInt(14, productEntity.getSubjectToAcl());
+            ps.setInt(15, productEntity.getLimitedToStores());
+            ps.setInt(16, productEntity.getIsGiftCard());
+            ps.setInt(17, productEntity.getGiftCardTypeId());
+            ps.setInt(18, productEntity.getRequireOtherProducts());
+            ps.setInt(19, productEntity.getAutomaticallyAddRequiredProducts());
+            ps.setInt(20, productEntity.getIsDownload());
+            ps.setInt(21, productEntity.getDownloadId());
+            ps.setInt(22, productEntity.getUnlimitedDownloads());
+            ps.setInt(23, productEntity.getMaxNumberOfDownloads());
+            ps.setInt(24, productEntity.getDownloadActivationTypeId());
+            ps.setInt(25, productEntity.getHasSampleDownload());
+            ps.setInt(26, productEntity.getSampleDownloadId());
+            ps.setInt(27, productEntity.getHasUserAgreement());
+            ps.setInt(28, productEntity.getIsRecurring());
+            ps.setInt(29, productEntity.getRecurringCycleLength());
+            ps.setInt(30, productEntity.getRecurringCyclePeriodId());
+            ps.setInt(31, productEntity.getRecurringTotalCycles());
+            ps.setInt(32, productEntity.getIsRental());
+            ps.setInt(33, productEntity.getRentalPriceLength());
+            ps.setInt(34, productEntity.getRentalPricePeriodId());
+            ps.setInt(35, productEntity.getIsShipEnabled());
+            ps.setInt(36, productEntity.getIsFreeShipping());
+            ps.setInt(37, productEntity.getShipSeparately());
+            ps.setDouble(38, productEntity.getAdditionalShippingCharge());
+            ps.setInt(39, productEntity.getDeliveryDateId());
+            ps.setInt(40, productEntity.getIsTaxExempt());
+            ps.setInt(41, productEntity.getTaxCategoryId());
+            ps.setInt(42, productEntity.getIsTelecommunicationsOrBroadcastingOrElectronicServices());
+            ps.setInt(43, productEntity.getManageInventoryMethodId());
+            ps.setInt(44, productEntity.getProductAvailabilityRangeId());
+            ps.setInt(45, productEntity.getUseMultipleWarehouses());
+            ps.setInt(46, productEntity.getWarehouseId());
+            ps.setInt(47, productEntity.getStockQuantity());
+            ps.setInt(48, productEntity.getDisplayStockAvailability());
+            ps.setInt(49, productEntity.getDisplayStockQuantity());
+            ps.setInt(50, productEntity.getMinStockQuantity());
+            ps.setInt(51, productEntity.getLowStockActivityId());
+            ps.setInt(52, productEntity.getNotifyAdminForQuantityBelow());
+            ps.setInt(53, productEntity.getBackorderModeId());
+            ps.setInt(54, productEntity.getAllowBackInStockSubscriptions());
+            ps.setInt(55, productEntity.getOrderMinimumQuantity());
+            ps.setInt(56, productEntity.getOrderMaximumQuantity());
+            ps.setInt(57, productEntity.getAllowAddingOnlyExistingAttributeCombinations());
+            ps.setInt(58, productEntity.getNotReturnable());
+            ps.setInt(59, productEntity.getDisableBuyButton());
+            ps.setInt(60, productEntity.getDisableWishlistButton());
+            ps.setInt(61, productEntity.getAvailableForPreOrder());
+            ps.setInt(62, productEntity.getCallForPrice());
+            ps.setDouble(63, productEntity.getPrice());
+            ps.setDouble(64, productEntity.getOldPrice());
+            ps.setDouble(65, productEntity.getProductCost());
+            ps.setInt(66, productEntity.getCustomerEntersPrice());
+            ps.setDouble(67, productEntity.getMinimumCustomerEnteredPrice());
+            ps.setDouble(68, productEntity.getMaximumCustomerEnteredPrice());
+            ps.setInt(69, productEntity.getBasePriceEnabled());
+            ps.setDouble(70, productEntity.getBasePriceAmount());
+            ps.setInt(71, productEntity.getBasePriceUnitId());
+            ps.setDouble(72, productEntity.getBasePriceBaseAmount());
+            ps.setInt(73, productEntity.getBasePriceBaseUnitId());
+            ps.setInt(74, productEntity.getMarkAsNew());
+            ps.setInt(75, productEntity.getHasTierPrices());
+            ps.setInt(76, productEntity.getHasDiscountsApplied());
+            ps.setDouble(77, productEntity.getWeight());
+            ps.setDouble(78, productEntity.getLength());
+            ps.setDouble(79, productEntity.getWidth());
+            ps.setDouble(80, productEntity.getHeight());
+            ps.setInt(81, productEntity.getDisplayOrder());
+            ps.setInt(82, productEntity.getPublished());
+            ps.setInt(83, productEntity.getDeleted());
+            ps.setString(84, productEntity.getCreatedOnUtc());
+            ps.setString(85, productEntity.getUpdatedOnUtc());
 
             ps.executeUpdate();
 
@@ -211,10 +211,10 @@ public class ProductDAOJdbc implements ProductDAO {
         }
     }
 
-    public ProductModel create() {
-        ProductModel productModel = new FillProductModel().fillRequiredFields();
-        create(productModel);
-        return productModel;
+    public ProductEntity create() {
+        ProductEntity productEntity = new FillProductModelEntity().fillRequiredFields();
+        create(productEntity);
+        return productEntity;
     }
 
     @Override

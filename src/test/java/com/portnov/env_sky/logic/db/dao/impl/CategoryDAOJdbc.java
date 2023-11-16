@@ -4,8 +4,8 @@ package com.portnov.env_sky.logic.db.dao.impl;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.CategoryDAO;
-import com.portnov.env_sky.logic.db.model.CategoryModel;
-import com.portnov.env_sky.logic.data.FillCategoryModel;
+import com.portnov.env_sky.logic.db.model.CategoryEntity;
+import com.portnov.env_sky.logic.data.FillCategoryEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class CategoryDAOJdbc implements CategoryDAO {
     private static SQLServerDataSource ds = ServiceDB.INSTANCE.getDataSource();
 
     @Override
-    public void create(CategoryModel categoryModel) {
+    public void create(CategoryEntity categoryEntity) {
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement("INSERT INTO Category (" +
                      "Name," +
@@ -44,27 +44,27 @@ public class CategoryDAOJdbc implements CategoryDAO {
                      ")" +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
         ) {
-            ps.setString(1, categoryModel.getName());
-            ps.setString(2, categoryModel.getDescription());
-            ps.setInt(3, categoryModel.getParentCategoryId());
-            ps.setInt(4, categoryModel.getPictureId());
-            ps.setInt(5, categoryModel.getCategoryTemplateId());
-            ps.setInt(6, categoryModel.getManuallyPriceRange());
-            ps.setInt(7, categoryModel.getPageSize());
-            ps.setString(8, categoryModel.getPageSizeOptions());
-            ps.setInt(9, categoryModel.getAllowCustomersToSelectPageSize());
-            ps.setInt(10, categoryModel.getShowOnHomepage());
-            ps.setInt(11, categoryModel.getIncludeInTopMenu());
-            ps.setInt(12, categoryModel.getSubjectToAcl());
-            ps.setInt(13, categoryModel.getLimitedToStores());
-            ps.setInt(14, categoryModel.getPublished());
-            ps.setInt(15, categoryModel.getDeleted());
-            ps.setInt(16, categoryModel.getDisplayOrder());
-            ps.setString(17, categoryModel.getCreatedOnUtc());
-            ps.setString(18, categoryModel.getUpdatedOnUtc());
-            ps.setInt(19, categoryModel.getPriceRangeFiltering());
-            ps.setInt(20, categoryModel.getPriceFrom());
-            ps.setInt(21, categoryModel.getPriceTo());
+            ps.setString(1, categoryEntity.getName());
+            ps.setString(2, categoryEntity.getDescription());
+            ps.setInt(3, categoryEntity.getParentCategoryId());
+            ps.setInt(4, categoryEntity.getPictureId());
+            ps.setInt(5, categoryEntity.getCategoryTemplateId());
+            ps.setInt(6, categoryEntity.getManuallyPriceRange());
+            ps.setInt(7, categoryEntity.getPageSize());
+            ps.setString(8, categoryEntity.getPageSizeOptions());
+            ps.setInt(9, categoryEntity.getAllowCustomersToSelectPageSize());
+            ps.setInt(10, categoryEntity.getShowOnHomepage());
+            ps.setInt(11, categoryEntity.getIncludeInTopMenu());
+            ps.setInt(12, categoryEntity.getSubjectToAcl());
+            ps.setInt(13, categoryEntity.getLimitedToStores());
+            ps.setInt(14, categoryEntity.getPublished());
+            ps.setInt(15, categoryEntity.getDeleted());
+            ps.setInt(16, categoryEntity.getDisplayOrder());
+            ps.setString(17, categoryEntity.getCreatedOnUtc());
+            ps.setString(18, categoryEntity.getUpdatedOnUtc());
+            ps.setInt(19, categoryEntity.getPriceRangeFiltering());
+            ps.setInt(20, categoryEntity.getPriceFrom());
+            ps.setInt(21, categoryEntity.getPriceTo());
 
             ps.execute();
 
@@ -73,10 +73,10 @@ public class CategoryDAOJdbc implements CategoryDAO {
         }
     }
 
-    public CategoryModel create() {
-        CategoryModel categoryModel = new FillCategoryModel().fillRequiredFields();
-        create(categoryModel);
-        return categoryModel;
+    public CategoryEntity create() {
+        CategoryEntity categoryEntity = new FillCategoryEntity().fillRequiredFields();
+        create(categoryEntity);
+        return categoryEntity;
     }
 
     @Override

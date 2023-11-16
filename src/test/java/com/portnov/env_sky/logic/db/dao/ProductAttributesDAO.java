@@ -1,10 +1,10 @@
 package com.portnov.env_sky.logic.db.dao;
 
-import com.portnov.env_sky.logic.db.model.ProductAttributesModel;
+import com.portnov.env_sky.logic.db.model.ProductAttributesEntity;
 
 public interface ProductAttributesDAO {
 
-    void create(ProductAttributesModel productAttributesModel);
+    void create(ProductAttributesEntity productAttributesEntity);
 
     void deleteAll(String patternName);
 }

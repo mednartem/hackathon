@@ -2,10 +2,10 @@ package com.portnov.env_sky.logic.db.dao.impl;
 
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.portnov.env_sky.logic.data.FillProductAttributeModel;
+import com.portnov.env_sky.logic.data.FillProductAttributeEntity;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ProductAttributesDAO;
-import com.portnov.env_sky.logic.db.model.ProductAttributesModel;
+import com.portnov.env_sky.logic.db.model.ProductAttributesEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,13 +17,13 @@ public class ProductAttributesDAOJdbc implements ProductAttributesDAO {
     private static SQLServerDataSource ds = ServiceDB.INSTANCE.getDataSource();
 
     @Override
-    public void create(ProductAttributesModel productAttributesModel) {
+    public void create(ProductAttributesEntity productAttributesEntity) {
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement(
                      "INSERT INTO ProductAttribute (Name, Description) VALUES (?, ?)")
         ) {
-            ps.setString(1, productAttributesModel.getName());
-            ps.setString(2, productAttributesModel.getDescription());
+            ps.setString(1, productAttributesEntity.getName());
+            ps.setString(2, productAttributesEntity.getDescription());
 
             ps.execute();
 
@@ -32,10 +32,10 @@ public class ProductAttributesDAOJdbc implements ProductAttributesDAO {
         }
     }
 
-    public ProductAttributesModel create() {
-        ProductAttributesModel productAttributesModel = new FillProductAttributeModel().fillRequiredFields();
-        create(productAttributesModel);
-        return productAttributesModel;
+    public ProductAttributesEntity create() {
+        ProductAttributesEntity productAttributesEntity = new FillProductAttributeEntity().fillRequiredFields();
+        create(productAttributesEntity);
+        return productAttributesEntity;
     }
 
     @Override

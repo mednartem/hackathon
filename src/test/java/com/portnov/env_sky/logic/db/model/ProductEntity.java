@@ -1,6 +1,6 @@
 package com.portnov.env_sky.logic.db.model;
 
-public class ProductModel {
+public class ProductEntity {
     private int id;
     private String name;
     private String shortDescription;

@@ -4,8 +4,8 @@ package com.portnov.env_sky.logic.db.dao.impl;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ManufacturerDAO;
-import com.portnov.env_sky.logic.data.FillManufacturerModel;
-import com.portnov.env_sky.logic.db.model.ManufacturerModel;
+import com.portnov.env_sky.logic.data.FillManufacturerEntity;
+import com.portnov.env_sky.logic.db.model.ManufacturerEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class ManufacturerDAOJdbc implements ManufacturerDAO {
     private static SQLServerDataSource ds = ServiceDB.INSTANCE.getDataSource();
 
     @Override
-    public void create(ManufacturerModel categoryModel) {
+    public void create(ManufacturerEntity categoryModel) {
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement("INSERT INTO Manufacturer (" +
                      "Name," +
@@ -70,10 +70,10 @@ public class ManufacturerDAOJdbc implements ManufacturerDAO {
         }
     }
 
-    public ManufacturerModel create() {
-        ManufacturerModel manufacturerModel = new FillManufacturerModel().fillRequiredFields();
-        create(manufacturerModel);
-        return manufacturerModel;
+    public ManufacturerEntity create() {
+        ManufacturerEntity manufacturerEntity = new FillManufacturerEntity().fillRequiredFields();
+        create(manufacturerEntity);
+        return manufacturerEntity;
     }
 
     @Override
