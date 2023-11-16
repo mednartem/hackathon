@@ -1,7 +1,9 @@
 package com.portnov.env_sky.logic.driver;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.portnov.env_sky.logic.config.ProjectConfig;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -14,7 +16,7 @@ public class DesktopDriver {
         Configuration.browser = ProjectConfig.browser.name();
         Configuration.browserSize = ProjectConfig.browser.browserSize();
         Configuration.baseUrl = ProjectConfig.app.baseUrl();
-
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         DesiredCapabilities capabilities = new DesiredCapabilities();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");
@@ -23,6 +25,7 @@ public class DesktopDriver {
         chromeOptions.addArguments("--disable-notifications");
 
         if (ProjectConfig.browser.isRemote()) {
+            Configuration.timeout = 10000;
             Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
 
             capabilities.setCapability("selenoid:options", Map.of(

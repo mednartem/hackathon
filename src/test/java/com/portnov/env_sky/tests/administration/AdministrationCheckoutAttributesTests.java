@@ -56,15 +56,13 @@ public class AdministrationCheckoutAttributesTests {
     @Link(value = "Test case TEAM1-117", url = "https://jira.portnov.com/browse/TEAM1-117")
     void addNewCheckoutAttributeBasic() {
         String name = RandomData.generateNameCheckoutAttribute();
-        String description = RandomData.generateDescriptionCheckoutAttribute();
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CHECKOUT_ATTRIBUTE_LIST);
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
         checkoutAttributeCreatePage
-                .iTypeName(name)
-                .iTypeTextPrompt(description);
+                .iTypeName(name);
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
         alertNotificationWidget

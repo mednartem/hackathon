@@ -17,9 +17,4 @@ public class AdministrationCheckoutAttributeCreatePage {
         $("#Name").setValue(name);
         return this;
     }
-
-    @Step("I type text prompt `{textPrompt}`")
-    public void iTypeTextPrompt(String textPrompt) {
-        $("#TextPrompt").setValue(textPrompt);
-    }
 }
