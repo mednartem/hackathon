@@ -5,12 +5,10 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.CategoryDAO;
 import com.portnov.env_sky.logic.db.model.CategoryEntity;
-import com.portnov.env_sky.logic.data.FillCategoryEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class CategoryDAOJdbc implements CategoryDAO {
 
@@ -18,32 +16,33 @@ public class CategoryDAOJdbc implements CategoryDAO {
 
     @Override
     public void create(CategoryEntity categoryEntity) {
+        String sql = "INSERT INTO Category (" +
+                "Name," +
+                "Description," +
+                "ParentCategoryId," +
+                "PictureId," +
+                "CategoryTemplateId," +
+                "ManuallyPriceRange," +
+                "PageSize," +
+                "PageSizeOptions," +
+                "AllowCustomersToSelectPageSize," +
+                "ShowOnHomepage," +
+                "IncludeInTopMenu," +
+                "SubjectToAcl," +
+                "LimitedToStores," +
+                "Published," +
+                "Deleted," +
+                "DisplayOrder," +
+                "CreatedOnUtc," +
+                "UpdatedOnUtc," +
+                "PriceRangeFiltering," +
+                "PriceFrom," +
+                "PriceTo" +
+                ")" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try (Connection connection = ds.getConnection();
-             PreparedStatement ps = connection.prepareStatement("INSERT INTO Category (" +
-                     "Name," +
-                     "Description," +
-                     "ParentCategoryId," +
-                     "PictureId," +
-                     "CategoryTemplateId," +
-                     "ManuallyPriceRange," +
-                     "PageSize," +
-                     "PageSizeOptions," +
-                     "AllowCustomersToSelectPageSize," +
-                     "ShowOnHomepage," +
-                     "IncludeInTopMenu," +
-                     "SubjectToAcl," +
-                     "LimitedToStores," +
-                     "Published," +
-                     "Deleted," +
-                     "DisplayOrder," +
-                     "CreatedOnUtc," +
-                     "UpdatedOnUtc," +
-                     "PriceRangeFiltering," +
-                     "PriceFrom," +
-                     "PriceTo" +
-                     ")" +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-        ) {
+             PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, categoryEntity.getName());
             ps.setString(2, categoryEntity.getDescription());
             ps.setInt(3, categoryEntity.getParentCategoryId());
@@ -67,26 +66,22 @@ public class CategoryDAOJdbc implements CategoryDAO {
             ps.setInt(21, categoryEntity.getPriceTo());
 
             ps.execute();
-
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error creating the category: " + e.getMessage());
         }
-    }
-
-    public CategoryEntity create() {
-        CategoryEntity categoryEntity = new FillCategoryEntity().fillRequiredFields();
-        create(categoryEntity);
-        return categoryEntity;
     }
 
     @Override
     public void deleteAll(String patternName) {
         try (Connection connection = ds.getConnection();
-             Statement statement = connection.createStatement()) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM Category WHERE Name LIKE ?")) {
 
-            statement.execute("DELETE FROM Category WHERE Name LIKE + '" + patternName + "'");
+            statement.setString(1, "%" + patternName + "%");
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error removing the category by pattern: " + patternName + ";\n" + e.getMessage());
         }
     }
 }

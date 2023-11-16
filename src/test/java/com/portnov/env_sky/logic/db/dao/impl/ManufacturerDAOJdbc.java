@@ -4,13 +4,11 @@ package com.portnov.env_sky.logic.db.dao.impl;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ManufacturerDAO;
-import com.portnov.env_sky.logic.data.FillManufacturerEntity;
 import com.portnov.env_sky.logic.db.model.ManufacturerEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ManufacturerDAOJdbc implements ManufacturerDAO {
 
@@ -18,32 +16,34 @@ public class ManufacturerDAOJdbc implements ManufacturerDAO {
 
     @Override
     public void create(ManufacturerEntity categoryModel) {
+        String sql = "INSERT INTO Manufacturer (" +
+                "Name," +
+                "Description," +
+                "PageSizeOptions," +
+                "ManufacturerTemplateId," +
+                "PictureId," +
+                "PageSize," +
+                "AllowCustomersToSelectPageSize," +
+                "SubjectToAcl," +
+                "LimitedToStores," +
+                "Published," +
+                "Deleted," +
+                "DisplayOrder," +
+                "CreatedOnUtc," +
+                "UpdatedOnUtc," +
+                "PriceRangeFiltering," +
+                "PriceFrom," +
+                "PriceTo," +
+                "ManuallyPriceRange" +
+                ")" +
+                "VALUES (" +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?," +
+                "?, ?, ?, ?, ?, ?, ?, ?" +
+                ")";
+
         try (Connection connection = ds.getConnection();
-             PreparedStatement ps = connection.prepareStatement("INSERT INTO Manufacturer (" +
-                     "Name," +
-                     "Description," +
-                     "PageSizeOptions," +
-                     "ManufacturerTemplateId," +
-                     "PictureId," +
-                     "PageSize," +
-                     "AllowCustomersToSelectPageSize," +
-                     "SubjectToAcl," +
-                     "LimitedToStores," +
-                     "Published," +
-                     "Deleted," +
-                     "DisplayOrder," +
-                     "CreatedOnUtc," +
-                     "UpdatedOnUtc," +
-                     "PriceRangeFiltering," +
-                     "PriceFrom," +
-                     "PriceTo," +
-                     "ManuallyPriceRange" +
-                     ")" +
-                     "VALUES (" +
-                     "?, ?, ?, ?, ?, ?, ?, ?, ?, ?," +
-                     "?, ?, ?, ?, ?, ?, ?, ?" +
-                     ")")
-        ) {
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ps.setString(1, categoryModel.getName());
             ps.setString(2, categoryModel.getDescription());
             ps.setString(3, categoryModel.getPageSizeOptions());
@@ -62,28 +62,23 @@ public class ManufacturerDAOJdbc implements ManufacturerDAO {
             ps.setDouble(16, categoryModel.getPriceFrom());
             ps.setDouble(17, categoryModel.getPriceTo());
             ps.setInt(18, categoryModel.getManuallyPriceRange());
-
             ps.execute();
-
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error creating the manufacturer: " + e.getMessage());
         }
-    }
-
-    public ManufacturerEntity create() {
-        ManufacturerEntity manufacturerEntity = new FillManufacturerEntity().fillRequiredFields();
-        create(manufacturerEntity);
-        return manufacturerEntity;
     }
 
     @Override
     public void deleteAll(String patternName) {
         try (Connection connection = ds.getConnection();
-             Statement statement = connection.createStatement()) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM Manufacturer WHERE Name LIKE ?")) {
 
-            statement.execute("DELETE FROM Manufacturer WHERE Name LIKE + '" + patternName + "'");
+            statement.setString(1, "%" + patternName + "%");
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error removing the manufactures by pattern: " + patternName + ";\n" + e.getMessage());
         }
     }
 }

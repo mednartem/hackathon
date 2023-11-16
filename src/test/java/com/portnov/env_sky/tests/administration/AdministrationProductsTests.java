@@ -1,8 +1,12 @@
 package com.portnov.env_sky.tests.administration;
 
-import com.portnov.env_sky.logic.db.dao.impl.ProductDAOJdbc;
-import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.data.FillProductModelEntity;
 import com.portnov.env_sky.logic.data.RandomData;
+import com.portnov.env_sky.logic.db.dao.ProductDAO;
+import com.portnov.env_sky.logic.db.model.ProductEntity;
+import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.jupiter.Dao;
+import com.portnov.env_sky.logic.jupiter.DaoExtension;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.products.AdministrationProductCreatePage;
 import com.portnov.env_sky.logic.pages.administration.products.AdministrationProductsPage;
@@ -13,11 +17,13 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @Epic("Administration")
 @Feature("Catalog")
 @Story("Products")
 @WebTest
+@ExtendWith(DaoExtension.class)
 public class AdministrationProductsTests {
 
     private final BaseSteps baseSteps = new BaseSteps();
@@ -28,7 +34,8 @@ public class AdministrationProductsTests {
     private final AdministrationModalWidget modalWidget = new AdministrationModalWidget();
     private final AdministrationAlertNotificationWidget alertNotificationWidget = new AdministrationAlertNotificationWidget();
     private final AdministrationDataTableLengthWidget dataTableLengthWidget = new AdministrationDataTableLengthWidget();
-    private final ProductDAOJdbc productDAOJdbc = new ProductDAOJdbc();
+    @Dao
+    private ProductDAO productDAO;
 
     @Test
     void openProductsPage() {
@@ -69,14 +76,15 @@ public class AdministrationProductsTests {
     @Test
     @Link(value = "Test case TEAM1-125", url = "https://jira.portnov.com/browse/TEAM1-125")
     void deleteProductFromEditForm() {
-        String name = productDAOJdbc.create().getName();
+        ProductEntity productEntity = new FillProductModelEntity().fillRequiredFields();
+        productDAO.create(productEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCTS);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);
         productsPage
-                .clickEditBtnAtTheProduct(name);
+                .clickEditBtnAtTheProduct(productEntity.getName());
         productCreatePage
                 .pageShouldBeOpened();
         headerWidget
@@ -86,25 +94,26 @@ public class AdministrationProductsTests {
         alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_PRODUCT_HAS_BEEN_DELETED_SUCCESSFULLY);
         productsPage
-                .productShouldNotBeDisplayInTheTable(name);
+                .productShouldNotBeDisplayInTheTable(productEntity.getName());
     }
 
     @Test
     @Link(value = "Test case TEAM1-126", url = "https://jira.portnov.com/browse/TEAM1-126")
     void deleteProductFromProductsPage() {
-        String name = productDAOJdbc.create().getName();
+        ProductEntity productEntity = new FillProductModelEntity().fillRequiredFields();
+        productDAO.create(productEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCTS);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);
         productsPage
-                .selectCheckboxAtTheProduct(name);
+                .selectCheckboxAtTheProduct(productEntity.getName());
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.DELETE_SELECTED);
         modalWidget
                 .iClickBtn(AdministrationModalButton.YES);
         productsPage
-                .productShouldNotBeDisplayInTheTable(name);
+                .productShouldNotBeDisplayInTheTable(productEntity.getName());
     }
 }

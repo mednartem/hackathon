@@ -1,8 +1,12 @@
 package com.portnov.env_sky.tests.administration;
 
-import com.portnov.env_sky.logic.db.dao.impl.CategoryDAOJdbc;
-import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.data.FillCategoryEntity;
 import com.portnov.env_sky.logic.data.RandomData;
+import com.portnov.env_sky.logic.db.dao.CategoryDAO;
+import com.portnov.env_sky.logic.db.model.CategoryEntity;
+import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.jupiter.Dao;
+import com.portnov.env_sky.logic.jupiter.DaoExtension;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.categories.AdministrationCategoriesPage;
 import com.portnov.env_sky.logic.pages.administration.categories.AdministrationCategoryCreatePage;
@@ -16,11 +20,13 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @Epic("Administration")
 @Feature("Catalog")
 @Story("Categories")
 @WebTest
+@ExtendWith(DaoExtension.class)
 public class AdministrationCategoriesTests {
 
     private final BaseSteps baseSteps = new BaseSteps();
@@ -30,7 +36,8 @@ public class AdministrationCategoriesTests {
     private final AdministrationHeaderWidget administrationHeaderWidget = new AdministrationHeaderWidget();
     private final AdministrationAlertNotificationWidget administrationAlertNotificationWidget = new AdministrationAlertNotificationWidget();
     private final AdministrationModalWidget administrationModalWidget = new AdministrationModalWidget();
-    private final CategoryDAOJdbc categoryDAOJdbc = new CategoryDAOJdbc();
+    @Dao
+    private CategoryDAO categoryDAO;
 
     @Test
     void openCategoriesPage() {
@@ -225,12 +232,13 @@ public class AdministrationCategoriesTests {
     @Test
     @Link(value = "Test case TEAM1-41", url = "https://jira.portnov.com/browse/TEAM1-41")
     void deleteCategoryFromEditForm() {
-        String nameCategory = categoryDAOJdbc.create().getName();
+        CategoryEntity categoryEntity = new FillCategoryEntity().fillRequiredFields();
+        categoryDAO.create(categoryEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
         administrationCategoriesPage
-                .clickEditBtnAtTheCategory(nameCategory);
+                .clickEditBtnAtTheCategory(categoryEntity.getName());
         administrationCategoryCreatePage
                 .pageShouldBeOpened();
         administrationHeaderWidget
@@ -240,23 +248,24 @@ public class AdministrationCategoriesTests {
         administrationAlertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_CATEGORY_HAS_BEEN_DELETED_SUCCESSFULLY);
         administrationCategoriesPage
-                .categoryShouldNotBeDisplayInTheTable(nameCategory);
+                .categoryShouldNotBeDisplayInTheTable(categoryEntity.getName());
     }
 
     @Test
     @Link(value = "Test case TEAM1-42", url = "https://jira.portnov.com/browse/TEAM1-42")
     void deleteCategoryFromCategoriesPage() {
-        String nameCategory = categoryDAOJdbc.create().getName();
+        CategoryEntity categoryEntity = new FillCategoryEntity().fillRequiredFields();
+        categoryDAO.create(categoryEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
         administrationCategoriesPage
-                .selectCheckboxAtTheCategory(nameCategory);
+                .selectCheckboxAtTheCategory(categoryEntity.getName());
         administrationHeaderWidget
                 .iClickBtn(AdministrationHeaderButton.DELETE_SELECTED);
         administrationModalWidget
                 .iClickBtn(AdministrationModalButton.YES);
         administrationCategoriesPage
-                .categoryShouldNotBeDisplayInTheTable(nameCategory);
+                .categoryShouldNotBeDisplayInTheTable(categoryEntity.getName());
     }
 }

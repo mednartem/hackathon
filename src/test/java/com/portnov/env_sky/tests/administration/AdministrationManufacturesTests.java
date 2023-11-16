@@ -1,8 +1,12 @@
 package com.portnov.env_sky.tests.administration;
 
-import com.portnov.env_sky.logic.db.dao.impl.ManufacturerDAOJdbc;
-import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.data.FillManufacturerEntity;
 import com.portnov.env_sky.logic.data.RandomData;
+import com.portnov.env_sky.logic.db.dao.ManufacturerDAO;
+import com.portnov.env_sky.logic.db.model.ManufacturerEntity;
+import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.jupiter.Dao;
+import com.portnov.env_sky.logic.jupiter.DaoExtension;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.manufacturer.AdministrationManufacturerCreatePage;
 import com.portnov.env_sky.logic.pages.administration.manufacturer.AdministrationManufacturersPage;
@@ -13,11 +17,13 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @Epic("Administration")
 @Feature("Catalog")
 @Story("Manufacturer")
 @WebTest
+@ExtendWith(DaoExtension.class)
 public class AdministrationManufacturesTests {
 
     private final BaseSteps baseSteps = new BaseSteps();
@@ -28,7 +34,8 @@ public class AdministrationManufacturesTests {
     private final AdministrationModalWidget modalWidget = new AdministrationModalWidget();
     private final AdministrationAlertNotificationWidget alertNotificationWidget = new AdministrationAlertNotificationWidget();
     private final AdministrationDataTableLengthWidget dataTableLengthWidget = new AdministrationDataTableLengthWidget();
-    private final ManufacturerDAOJdbc manufacturerDAOJdbc = new ManufacturerDAOJdbc();
+    @Dao
+    private ManufacturerDAO manufacturerDAO;
 
     @Test
     void openManufacturersPage() {
@@ -67,12 +74,13 @@ public class AdministrationManufacturesTests {
     @Test
     @Link(value = "Test case TEAM1-54", url = "https://jira.portnov.com/browse/TEAM1-54")
     void deleteManufacturerFromEditForm() {
-        String name = manufacturerDAOJdbc.create().getName();
+        ManufacturerEntity manufacturerEntity = new FillManufacturerEntity().fillRequiredFields();
+        manufacturerDAO.create(manufacturerEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_MANUFACTURER);
         manufacturersPage
-                .clickEditBtnAtTheManufacturer(name);
+                .clickEditBtnAtTheManufacturer(manufacturerEntity.getName());
         manufacturerCreatePage
                 .pageShouldBeOpened();
         headerWidget
@@ -82,25 +90,26 @@ public class AdministrationManufacturesTests {
         alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_MANUFACTURER_HAS_BEEN_DELETED_SUCCESSFULLY);
         manufacturersPage
-                .manufacturerShouldNotBeDisplayInTheTable(name);
+                .manufacturerShouldNotBeDisplayInTheTable(manufacturerEntity.getName());
     }
 
     @Test
     @Link(value = "Test case TEAM1-55", url = "https://jira.portnov.com/browse/TEAM1-55")
     void deleteManufacturerFromManufacturersPage() {
-        String name = manufacturerDAOJdbc.create().getName();
+        ManufacturerEntity manufacturerEntity = new FillManufacturerEntity().fillRequiredFields();
+        manufacturerDAO.create(manufacturerEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_MANUFACTURER);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);
         manufacturersPage
-                .selectCheckboxAtTheManufacturer(name);
+                .selectCheckboxAtTheManufacturer(manufacturerEntity.getName());
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.DELETE_SELECTED);
         modalWidget
                 .iClickBtn(AdministrationModalButton.YES);
         manufacturersPage
-                .manufacturerShouldNotBeDisplayInTheTable(name);
+                .manufacturerShouldNotBeDisplayInTheTable(manufacturerEntity.getName());
     }
 }

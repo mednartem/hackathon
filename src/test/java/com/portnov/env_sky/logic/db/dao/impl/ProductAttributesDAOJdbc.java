@@ -2,7 +2,6 @@ package com.portnov.env_sky.logic.db.dao.impl;
 
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.portnov.env_sky.logic.data.FillProductAttributeEntity;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ProductAttributesDAO;
 import com.portnov.env_sky.logic.db.model.ProductAttributesEntity;
@@ -10,7 +9,6 @@ import com.portnov.env_sky.logic.db.model.ProductAttributesEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ProductAttributesDAOJdbc implements ProductAttributesDAO {
 
@@ -29,23 +27,20 @@ public class ProductAttributesDAOJdbc implements ProductAttributesDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error creating the product attribute: " + e.getMessage());
         }
-    }
-
-    public ProductAttributesEntity create() {
-        ProductAttributesEntity productAttributesEntity = new FillProductAttributeEntity().fillRequiredFields();
-        create(productAttributesEntity);
-        return productAttributesEntity;
     }
 
     @Override
     public void deleteAll(String patternName) {
         try (Connection connection = ds.getConnection();
-             Statement statement = connection.createStatement()) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM ProductAttribute WHERE Name LIKE ?")) {
 
-            statement.execute("DELETE FROM ProductAttribute WHERE Name LIKE + '" + patternName + "'");
+            statement.setString(1, "%" + patternName + "%");
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error removing the product attributes by pattern: " + patternName + ";\n" + e.getMessage());
         }
     }
 }

@@ -1,8 +1,12 @@
 package com.portnov.env_sky.tests.administration;
 
-import com.portnov.env_sky.logic.db.dao.impl.ProductAttributesDAOJdbc;
-import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.data.FillProductAttributeEntity;
 import com.portnov.env_sky.logic.data.RandomData;
+import com.portnov.env_sky.logic.db.dao.ProductAttributesDAO;
+import com.portnov.env_sky.logic.db.model.ProductAttributesEntity;
+import com.portnov.env_sky.logic.dictionary.ui.administration.*;
+import com.portnov.env_sky.logic.jupiter.Dao;
+import com.portnov.env_sky.logic.jupiter.DaoExtension;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.attributes.AdministrationProductAttributeCreatePage;
 import com.portnov.env_sky.logic.pages.administration.attributes.AdministrationProductAttributesPage;
@@ -13,11 +17,13 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @Epic("Administration")
 @Feature("Catalog")
 @Story("Product attributes")
 @WebTest
+@ExtendWith(DaoExtension.class)
 public class AdministrationProductAttributesTests {
 
     private final BaseSteps baseSteps = new BaseSteps();
@@ -28,7 +34,8 @@ public class AdministrationProductAttributesTests {
     private final AdministrationModalWidget modalWidget = new AdministrationModalWidget();
     private final AdministrationAlertNotificationWidget alertNotificationWidget = new AdministrationAlertNotificationWidget();
     private final AdministrationDataTableLengthWidget dataTableLengthWidget = new AdministrationDataTableLengthWidget();
-    private final ProductAttributesDAOJdbc productAttributesDAOJdbc = new ProductAttributesDAOJdbc();
+    @Dao
+    private ProductAttributesDAO productAttributesDAO;
 
     @Test
     void openProductAttributePage() {
@@ -68,12 +75,13 @@ public class AdministrationProductAttributesTests {
     @Test
     @Link(value = "Test case TEAM1-96", url = "https://jira.portnov.com/browse/TEAM1-96")
     void deleteProductAttributeFromEditForm() {
-        String name = productAttributesDAOJdbc.create().getName();
+        ProductAttributesEntity productAttributesEntity = new FillProductAttributeEntity().fillRequiredFields();
+        productAttributesDAO.create(productAttributesEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCT_ATTRIBUTE);
         productAttributesPage
-                .clickEditBtnAtTheProductAttribute(name);
+                .clickEditBtnAtTheProductAttribute(productAttributesEntity.getName());
         productAttributeCreatePage
                 .pageShouldBeOpened();
         headerWidget
@@ -83,25 +91,26 @@ public class AdministrationProductAttributesTests {
         alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_ATTRIBUTE_HAS_BEEN_DELETED_SUCCESSFULLY);
         productAttributesPage
-                .productAttributeShouldNotBeDisplayInTheTable(name);
+                .productAttributeShouldNotBeDisplayInTheTable(productAttributesEntity.getName());
     }
 
     @Test
     @Link(value = "Test case TEAM1-99", url = "https://jira.portnov.com/browse/TEAM1-99")
     void deleteProductAttributeFromProductAttributesPage() {
-        String name = productAttributesDAOJdbc.create().getName();
+        ProductAttributesEntity productAttributesEntity = new FillProductAttributeEntity().fillRequiredFields();
+        productAttributesDAO.create(productAttributesEntity);
 
         baseSteps
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCT_ATTRIBUTE);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);
         productAttributesPage
-                .selectCheckboxAtTheProductAttribute(name);
+                .selectCheckboxAtTheProductAttribute(productAttributesEntity.getName());
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.DELETE_SELECTED);
         modalWidget
                 .iClickBtn(AdministrationModalButton.YES);
         productAttributesPage
-                .productAttributeShouldNotBeDisplayInTheTable(name);
+                .productAttributeShouldNotBeDisplayInTheTable(productAttributesEntity.getName());
     }
 }

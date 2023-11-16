@@ -4,13 +4,11 @@ package com.portnov.env_sky.logic.db.dao.impl;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.portnov.env_sky.logic.db.ServiceDB;
 import com.portnov.env_sky.logic.db.dao.ProductDAO;
-import com.portnov.env_sky.logic.data.FillProductModelEntity;
 import com.portnov.env_sky.logic.db.model.ProductEntity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ProductDAOJdbc implements ProductDAO {
 
@@ -18,106 +16,108 @@ public class ProductDAOJdbc implements ProductDAO {
 
     @Override
     public void create(ProductEntity productEntity) {
+        String sql = "INSERT INTO Product (" +
+                "Name," +
+                "ShortDescription," +
+                "ParentGroupedProductId," +
+                "ProductTypeId," +
+                "VisibleIndividually," +
+                "ProductTemplateId," +
+                "VendorId," +
+                "ShowOnHomepage," +
+                "AllowCustomerReviews," +
+                "ApprovedRatingSum," +
+                "NotApprovedRatingSum," +
+                "ApprovedTotalReviews," +
+                "NotApprovedTotalReviews," +
+                "SubjectToAcl," +
+                "LimitedToStores," +
+                "IsGiftCard," +
+                "GiftCardTypeId," +
+                "RequireOtherProducts," +
+                "AutomaticallyAddRequiredProducts," +
+                "IsDownload," +
+                "DownloadId," +
+                "UnlimitedDownloads," +
+                "MaxNumberOfDownloads," +
+                "DownloadActivationTypeId," +
+                "HasSampleDownload," +
+                "SampleDownloadId," +
+                "HasUserAgreement," +
+                "IsRecurring," +
+                "RecurringCycleLength," +
+                "RecurringCyclePeriodId," +
+                "RecurringTotalCycles," +
+                "IsRental," +
+                "RentalPriceLength," +
+                "RentalPricePeriodId," +
+                "IsShipEnabled," +
+                "IsFreeShipping," +
+                "ShipSeparately," +
+                "AdditionalShippingCharge," +
+                "DeliveryDateId," +
+                "IsTaxExempt," +
+                "TaxCategoryId," +
+                "IsTelecommunicationsOrBroadcastingOrElectronicServices," +
+                "ManageInventoryMethodId," +
+                "ProductAvailabilityRangeId," +
+                "UseMultipleWarehouses," +
+                "WarehouseId," +
+                "StockQuantity," +
+                "DisplayStockAvailability," +
+                "DisplayStockQuantity," +
+                "MinStockQuantity," +
+                "LowStockActivityId," +
+                "NotifyAdminForQuantityBelow," +
+                "BackorderModeId," +
+                "AllowBackInStockSubscriptions," +
+                "OrderMinimumQuantity," +
+                "OrderMaximumQuantity," +
+                "AllowAddingOnlyExistingAttributeCombinations," +
+                "NotReturnable," +
+                "DisableBuyButton," +
+                "DisableWishlistButton," +
+                "AvailableForPreOrder," +
+                "CallForPrice," +
+                "Price," +
+                "OldPrice," +
+                "ProductCost," +
+                "CustomerEntersPrice," +
+                "MinimumCustomerEnteredPrice," +
+                "MaximumCustomerEnteredPrice," +
+                "BasePriceEnabled," +
+                "BasePriceAmount," +
+                "BasePriceUnitId," +
+                "BasePriceBaseAmount," +
+                "BasePriceBaseUnitId," +
+                "MarkAsNew," +
+                "HasTierPrices," +
+                "HasDiscountsApplied," +
+                "Weight," +
+                "Length," +
+                "Width," +
+                "Height," +
+                "DisplayOrder," +
+                "Published," +
+                "Deleted," +
+                "CreatedOnUtc," +
+                "UpdatedOnUtc" +
+                ")" +
+                "VALUES (" +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
+                "?, ?, ?, ?, ?" +
+                ")";
+
         try (Connection connection = ds.getConnection();
-             PreparedStatement ps = connection.prepareStatement("INSERT INTO Product (" +
-                     "Name," +
-                     "ShortDescription," +
-                     "ParentGroupedProductId," +
-                     "ProductTypeId," +
-                     "VisibleIndividually," +
-                     "ProductTemplateId," +
-                     "VendorId," +
-                     "ShowOnHomepage," +
-                     "AllowCustomerReviews," +
-                     "ApprovedRatingSum," +
-                     "NotApprovedRatingSum," +
-                     "ApprovedTotalReviews," +
-                     "NotApprovedTotalReviews," +
-                     "SubjectToAcl," +
-                     "LimitedToStores," +
-                     "IsGiftCard," +
-                     "GiftCardTypeId," +
-                     "RequireOtherProducts," +
-                     "AutomaticallyAddRequiredProducts," +
-                     "IsDownload," +
-                     "DownloadId," +
-                     "UnlimitedDownloads," +
-                     "MaxNumberOfDownloads," +
-                     "DownloadActivationTypeId," +
-                     "HasSampleDownload," +
-                     "SampleDownloadId," +
-                     "HasUserAgreement," +
-                     "IsRecurring," +
-                     "RecurringCycleLength," +
-                     "RecurringCyclePeriodId," +
-                     "RecurringTotalCycles," +
-                     "IsRental," +
-                     "RentalPriceLength," +
-                     "RentalPricePeriodId," +
-                     "IsShipEnabled," +
-                     "IsFreeShipping," +
-                     "ShipSeparately," +
-                     "AdditionalShippingCharge," +
-                     "DeliveryDateId," +
-                     "IsTaxExempt," +
-                     "TaxCategoryId," +
-                     "IsTelecommunicationsOrBroadcastingOrElectronicServices," +
-                     "ManageInventoryMethodId," +
-                     "ProductAvailabilityRangeId," +
-                     "UseMultipleWarehouses," +
-                     "WarehouseId," +
-                     "StockQuantity," +
-                     "DisplayStockAvailability," +
-                     "DisplayStockQuantity," +
-                     "MinStockQuantity," +
-                     "LowStockActivityId," +
-                     "NotifyAdminForQuantityBelow," +
-                     "BackorderModeId," +
-                     "AllowBackInStockSubscriptions," +
-                     "OrderMinimumQuantity," +
-                     "OrderMaximumQuantity," +
-                     "AllowAddingOnlyExistingAttributeCombinations," +
-                     "NotReturnable," +
-                     "DisableBuyButton," +
-                     "DisableWishlistButton," +
-                     "AvailableForPreOrder," +
-                     "CallForPrice," +
-                     "Price," +
-                     "OldPrice," +
-                     "ProductCost," +
-                     "CustomerEntersPrice," +
-                     "MinimumCustomerEnteredPrice," +
-                     "MaximumCustomerEnteredPrice," +
-                     "BasePriceEnabled," +
-                     "BasePriceAmount," +
-                     "BasePriceUnitId," +
-                     "BasePriceBaseAmount," +
-                     "BasePriceBaseUnitId," +
-                     "MarkAsNew," +
-                     "HasTierPrices," +
-                     "HasDiscountsApplied," +
-                     "Weight," +
-                     "Length," +
-                     "Width," +
-                     "Height," +
-                     "DisplayOrder," +
-                     "Published," +
-                     "Deleted," +
-                     "CreatedOnUtc," +
-                     "UpdatedOnUtc" +
-                    ")" +
-                     "VALUES (" +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                         "?, ?, ?, ?, ?" +
-                     ")")
-        ) {
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ps.setString(1, productEntity.getName());
             ps.setString(2, productEntity.getShortDescription());
             ps.setInt(3, productEntity.getParentGroupedProductId());
@@ -204,27 +204,23 @@ public class ProductDAOJdbc implements ProductDAO {
             ps.setString(84, productEntity.getCreatedOnUtc());
             ps.setString(85, productEntity.getUpdatedOnUtc());
 
-            ps.executeUpdate();
-
+            ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error creating the product: " + e.getMessage());
         }
-    }
-
-    public ProductEntity create() {
-        ProductEntity productEntity = new FillProductModelEntity().fillRequiredFields();
-        create(productEntity);
-        return productEntity;
     }
 
     @Override
     public void deleteAll(String patternName) {
         try (Connection connection = ds.getConnection();
-             Statement statement = connection.createStatement()) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM Product WHERE Name LIKE ?")) {
 
-            statement.execute("DELETE FROM Product WHERE Name LIKE + '" + patternName + "'");
+            statement.setString(1, "%" + patternName + "%");
+            statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Error removing the product by pattern: " + patternName + ";\n" + e.getMessage());
         }
     }
 }
