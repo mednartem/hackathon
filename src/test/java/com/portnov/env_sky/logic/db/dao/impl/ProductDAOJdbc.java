@@ -16,104 +16,105 @@ public class ProductDAOJdbc implements ProductDAO {
 
     @Override
     public void create(ProductEntity productEntity) {
-        String sql = "INSERT INTO Product (" +
-                "Name," +
-                "ShortDescription," +
-                "ParentGroupedProductId," +
-                "ProductTypeId," +
-                "VisibleIndividually," +
-                "ProductTemplateId," +
-                "VendorId," +
-                "ShowOnHomepage," +
-                "AllowCustomerReviews," +
-                "ApprovedRatingSum," +
-                "NotApprovedRatingSum," +
-                "ApprovedTotalReviews," +
-                "NotApprovedTotalReviews," +
-                "SubjectToAcl," +
-                "LimitedToStores," +
-                "IsGiftCard," +
-                "GiftCardTypeId," +
-                "RequireOtherProducts," +
-                "AutomaticallyAddRequiredProducts," +
-                "IsDownload," +
-                "DownloadId," +
-                "UnlimitedDownloads," +
-                "MaxNumberOfDownloads," +
-                "DownloadActivationTypeId," +
-                "HasSampleDownload," +
-                "SampleDownloadId," +
-                "HasUserAgreement," +
-                "IsRecurring," +
-                "RecurringCycleLength," +
-                "RecurringCyclePeriodId," +
-                "RecurringTotalCycles," +
-                "IsRental," +
-                "RentalPriceLength," +
-                "RentalPricePeriodId," +
-                "IsShipEnabled," +
-                "IsFreeShipping," +
-                "ShipSeparately," +
-                "AdditionalShippingCharge," +
-                "DeliveryDateId," +
-                "IsTaxExempt," +
-                "TaxCategoryId," +
-                "IsTelecommunicationsOrBroadcastingOrElectronicServices," +
-                "ManageInventoryMethodId," +
-                "ProductAvailabilityRangeId," +
-                "UseMultipleWarehouses," +
-                "WarehouseId," +
-                "StockQuantity," +
-                "DisplayStockAvailability," +
-                "DisplayStockQuantity," +
-                "MinStockQuantity," +
-                "LowStockActivityId," +
-                "NotifyAdminForQuantityBelow," +
-                "BackorderModeId," +
-                "AllowBackInStockSubscriptions," +
-                "OrderMinimumQuantity," +
-                "OrderMaximumQuantity," +
-                "AllowAddingOnlyExistingAttributeCombinations," +
-                "NotReturnable," +
-                "DisableBuyButton," +
-                "DisableWishlistButton," +
-                "AvailableForPreOrder," +
-                "CallForPrice," +
-                "Price," +
-                "OldPrice," +
-                "ProductCost," +
-                "CustomerEntersPrice," +
-                "MinimumCustomerEnteredPrice," +
-                "MaximumCustomerEnteredPrice," +
-                "BasePriceEnabled," +
-                "BasePriceAmount," +
-                "BasePriceUnitId," +
-                "BasePriceBaseAmount," +
-                "BasePriceBaseUnitId," +
-                "MarkAsNew," +
-                "HasTierPrices," +
-                "HasDiscountsApplied," +
-                "Weight," +
-                "Length," +
-                "Width," +
-                "Height," +
-                "DisplayOrder," +
-                "Published," +
-                "Deleted," +
-                "CreatedOnUtc," +
-                "UpdatedOnUtc" +
-                ")" +
-                "VALUES (" +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?" +
-                ")";
+        String sql = """
+                INSERT INTO Product (
+                Name,
+                ShortDescription,
+                ParentGroupedProductId,
+                ProductTypeId,
+                VisibleIndividually,
+                ProductTemplateId,
+                VendorId,
+                ShowOnHomepage,
+                AllowCustomerReviews,
+                ApprovedRatingSum,
+                NotApprovedRatingSum,
+                ApprovedTotalReviews,
+                NotApprovedTotalReviews,
+                SubjectToAcl,
+                LimitedToStores,
+                IsGiftCard,
+                GiftCardTypeId,
+                RequireOtherProducts,
+                AutomaticallyAddRequiredProducts,
+                IsDownload,
+                DownloadId,
+                UnlimitedDownloads,
+                MaxNumberOfDownloads,
+                DownloadActivationTypeId,
+                HasSampleDownload,
+                SampleDownloadId,
+                HasUserAgreement,
+                IsRecurring,
+                RecurringCycleLength,
+                RecurringCyclePeriodId,
+                RecurringTotalCycles,
+                IsRental,
+                RentalPriceLength,
+                RentalPricePeriodId,
+                IsShipEnabled,
+                IsFreeShipping,
+                ShipSeparately,
+                AdditionalShippingCharge,
+                DeliveryDateId,
+                IsTaxExempt,
+                TaxCategoryId,
+                IsTelecommunicationsOrBroadcastingOrElectronicServices,
+                ManageInventoryMethodId,
+                ProductAvailabilityRangeId,
+                UseMultipleWarehouses,
+                WarehouseId,
+                StockQuantity,
+                DisplayStockAvailability,
+                DisplayStockQuantity,
+                MinStockQuantity,
+                LowStockActivityId,
+                NotifyAdminForQuantityBelow,
+                BackorderModeId,
+                AllowBackInStockSubscriptions,
+                OrderMinimumQuantity,
+                OrderMaximumQuantity,
+                AllowAddingOnlyExistingAttributeCombinations,
+                NotReturnable,
+                DisableBuyButton,
+                DisableWishlistButton,
+                AvailableForPreOrder,
+                CallForPrice,
+                Price,
+                OldPrice,
+                ProductCost,
+                CustomerEntersPrice,
+                MinimumCustomerEnteredPrice,
+                MaximumCustomerEnteredPrice,
+                BasePriceEnabled,
+                BasePriceAmount,
+                BasePriceUnitId,
+                BasePriceBaseAmount,
+                BasePriceBaseUnitId,
+                MarkAsNew,
+                HasTierPrices,
+                HasDiscountsApplied,
+                Weight,
+                Length,
+                Width,
+                Height,
+                DisplayOrder,
+                Published,
+                Deleted,
+                CreatedOnUtc,
+                UpdatedOnUtc
+                )
+                VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?
+                )""";
 
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {

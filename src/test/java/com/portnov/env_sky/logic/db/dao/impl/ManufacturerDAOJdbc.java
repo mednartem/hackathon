@@ -16,30 +16,31 @@ public class ManufacturerDAOJdbc implements ManufacturerDAO {
 
     @Override
     public void create(ManufacturerEntity categoryModel) {
-        String sql = "INSERT INTO Manufacturer (" +
-                "Name," +
-                "Description," +
-                "PageSizeOptions," +
-                "ManufacturerTemplateId," +
-                "PictureId," +
-                "PageSize," +
-                "AllowCustomersToSelectPageSize," +
-                "SubjectToAcl," +
-                "LimitedToStores," +
-                "Published," +
-                "Deleted," +
-                "DisplayOrder," +
-                "CreatedOnUtc," +
-                "UpdatedOnUtc," +
-                "PriceRangeFiltering," +
-                "PriceFrom," +
-                "PriceTo," +
-                "ManuallyPriceRange" +
-                ")" +
-                "VALUES (" +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?," +
-                "?, ?, ?, ?, ?, ?, ?, ?" +
-                ")";
+        String sql = """
+                NSERT INTO Manufacturer (
+                Name,
+                Description,
+                PageSizeOptions,
+                ManufacturerTemplateId,
+                PictureId,
+                PageSize,
+                AllowCustomersToSelectPageSize,
+                SubjectToAcl,
+                LimitedToStores,
+                Published,
+                Deleted,
+                DisplayOrder,
+                CreatedOnUtc,
+                UpdatedOnUtc,
+                PriceRangeFiltering,
+                PriceFrom,
+                PriceTo,
+                ManuallyPriceRange
+                )
+                VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                ?, ?, ?, ?, ?, ?, ?, ?
+                )""";
 
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {

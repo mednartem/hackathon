@@ -16,18 +16,19 @@ public class CheckoutAttributesDAOJdbc implements CheckoutAttributesDAO {
 
     @Override
     public void create(CheckoutAttributesEntity checkoutAttributesEntity) {
-        String sql = "INSERT INTO CheckoutAttribute (" +
-                "Name," +
-                "TextPrompt," +
-                "IsRequired," +
-                "ShippableProductRequired," +
-                "IsTaxExempt," +
-                "TaxCategoryId," +
-                "AttributeControlTypeId," +
-                "DisplayOrder," +
-                "LimitedToStores" +
-                ")" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = """
+                INSERT INTO CheckoutAttribute (
+                Name,
+                TextPrompt,
+                IsRequired,
+                ShippableProductRequired,
+                IsTaxExempt,
+                TaxCategoryId,
+                AttributeControlTypeId,
+                DisplayOrder,
+                LimitedToStores
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, checkoutAttributesEntity.getName());
