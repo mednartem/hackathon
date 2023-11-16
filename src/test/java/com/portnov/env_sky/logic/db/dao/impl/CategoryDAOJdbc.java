@@ -16,31 +16,30 @@ public class CategoryDAOJdbc implements CategoryDAO {
 
     @Override
     public void create(CategoryEntity categoryEntity) {
-        String sql = """
-                INSERT INTO Category (
-                Name,
-                Description,
-                ParentCategoryId,
-                PictureId,
-                CategoryTemplateId,
-                ManuallyPriceRange,
-                PageSize,
-                PageSizeOptions,
-                AllowCustomersToSelectPageSize,
-                ShowOnHomepage,
-                IncludeInTopMenu,
-                SubjectToAcl,
-                LimitedToStores,
-                Published,
-                Deleted,
-                DisplayOrder,
-                CreatedOnUtc,
-                UpdatedOnUtc,
-                PriceRangeFiltering,
-                PriceFrom,
-                PriceTo
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+        String sql = "INSERT INTO Category (" +
+                "Name," +
+                "Description," +
+                "ParentCategoryId," +
+                "PictureId," +
+                "CategoryTemplateId," +
+                "ManuallyPriceRange," +
+                "PageSize," +
+                "PageSizeOptions," +
+                "AllowCustomersToSelectPageSize," +
+                "ShowOnHomepage," +
+                "IncludeInTopMenu," +
+                "SubjectToAcl," +
+                "LimitedToStores," +
+                "Published," +
+                "Deleted," +
+                "DisplayOrder," +
+                "CreatedOnUtc," +
+                "UpdatedOnUtc," +
+                "PriceRangeFiltering," +
+                "PriceFrom," +
+                "PriceTo" +
+                ")" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = ds.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
