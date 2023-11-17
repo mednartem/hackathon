@@ -40,7 +40,6 @@ public class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, 
     @Override
     public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
         if (WebDriverRunner.hasWebDriverStarted()) {
-            AttachmentHelpers.attachScreenshot("Screenshot");
             AttachmentHelpers.attachAsText("Current url", WebDriverRunner.getWebDriver().getCurrentUrl());
             AttachmentHelpers.attachAsText("Browser console logs", AttachmentHelpers.getConsoleLogs());
         }
