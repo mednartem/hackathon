@@ -11,7 +11,7 @@ import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.products.AdministrationProductCreatePage;
 import com.portnov.env_sky.logic.pages.administration.products.AdministrationProductsPage;
 import com.portnov.env_sky.logic.pages.administration.widgets.*;
-import com.portnov.env_sky.logic.steps.BaseSteps;
+import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(DaoExtension.class)
 public class AdministrationProductsTests {
 
-    private final BaseSteps baseSteps = new BaseSteps();
+    private final BasePage basePage = new BasePage();
     private final AdministrationProductsPage productsPage = new AdministrationProductsPage();
     private final AdministrationProductCreatePage productCreatePage = new AdministrationProductCreatePage();
     private final AdministrationMenuWidget menuWidget = new AdministrationMenuWidget();
@@ -39,7 +39,7 @@ public class AdministrationProductsTests {
 
     @Test
     void openProductsPage() {
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.DASHBOARD);
         menuWidget
                 .iClickMenu(AdministrationMenu.CATALOG)
@@ -54,7 +54,7 @@ public class AdministrationProductsTests {
         String name = RandomData.generateNameProduct();
         String description = RandomData.generateDescriptionProduct();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCTS);
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
@@ -79,7 +79,7 @@ public class AdministrationProductsTests {
         ProductEntity productEntity = new FillProductModelEntity().fillRequiredFields();
         productDAO.create(productEntity);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCTS);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);
@@ -103,7 +103,7 @@ public class AdministrationProductsTests {
         ProductEntity productEntity = new FillProductModelEntity().fillRequiredFields();
         productDAO.create(productEntity);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_PRODUCTS);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);

@@ -10,11 +10,8 @@ import com.portnov.env_sky.logic.jupiter.DaoExtension;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.categories.AdministrationCategoriesPage;
 import com.portnov.env_sky.logic.pages.administration.categories.AdministrationCategoryCreatePage;
-import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationAlertNotificationWidget;
-import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationHeaderWidget;
-import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationMenuWidget;
-import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationModalWidget;
-import com.portnov.env_sky.logic.steps.BaseSteps;
+import com.portnov.env_sky.logic.pages.administration.widgets.*;
+import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
@@ -29,24 +26,25 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(DaoExtension.class)
 public class AdministrationCategoriesTests {
 
-    private final BaseSteps baseSteps = new BaseSteps();
-    private final AdministrationCategoriesPage administrationCategoriesPage = new AdministrationCategoriesPage();
-    private final AdministrationCategoryCreatePage administrationCategoryCreatePage = new AdministrationCategoryCreatePage();
-    private final AdministrationMenuWidget administrationMenuWidget = new AdministrationMenuWidget();
-    private final AdministrationHeaderWidget administrationHeaderWidget = new AdministrationHeaderWidget();
-    private final AdministrationAlertNotificationWidget administrationAlertNotificationWidget = new AdministrationAlertNotificationWidget();
-    private final AdministrationModalWidget administrationModalWidget = new AdministrationModalWidget();
+    private final BasePage basePage = new BasePage();
+    private final AdministrationCategoriesPage categoriesPage = new AdministrationCategoriesPage();
+    private final AdministrationCategoryCreatePage categoryCreatePage = new AdministrationCategoryCreatePage();
+    private final AdministrationMenuWidget menuWidget = new AdministrationMenuWidget();
+    private final AdministrationHeaderWidget headerWidget = new AdministrationHeaderWidget();
+    private final AdministrationAlertNotificationWidget alertNotificationWidget = new AdministrationAlertNotificationWidget();
+    private final AdministrationModalWidget modalWidget = new AdministrationModalWidget();
+    private final AdministrationDataTableLengthWidget dataTableLengthWidget = new AdministrationDataTableLengthWidget();
     @Dao
     private CategoryDAO categoryDAO;
 
     @Test
     void openCategoriesPage() {
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.DASHBOARD);
-        administrationMenuWidget
+        menuWidget
                 .iClickMenu(AdministrationMenu.CATALOG)
                 .iClickMenu(AdministrationMenu.CATEGORIES);
-        administrationCategoriesPage
+        categoriesPage
                 .pageShouldBeOpened();
     }
 
@@ -56,19 +54,22 @@ public class AdministrationCategoriesTests {
         String name = RandomData.generateNameCategory();
         String description = RandomData.generateDescriptionCategory();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .iTypeName(name)
                 .iTypeDescription(description);
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoriesPage
-                .pageShouldBeOpened()
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldBeDisplayInTheTable(name);
     }
 
@@ -82,32 +83,38 @@ public class AdministrationCategoriesTests {
 
         //todo need to determine why the category won't appear in the paren category dropdown
         //create category
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .iTypeName(nameParentCategory)
                 .iTypeDescription(description);
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoriesPage
-                .pageShouldBeOpened()
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldBeDisplayInTheTable(nameParentCategory);
 
         //createSubCategory
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .iTypeName(nameSubCategory)
                 .iTypeDescription(description)
                 .iSelectParentCategory(nameParentCategory);
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoriesPage
-                .pageShouldBeOpened()
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldBeDisplayInTheTable(nameParentCategory + " >> " + nameSubCategory);
     }
 
@@ -117,20 +124,23 @@ public class AdministrationCategoriesTests {
         String name = RandomData.generateNameCategory();
         String description = RandomData.generateDescriptionCategory();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened()
                 .iTypeName(name)
                 .iTypeDescription(description)
                 .iSwitchBasicToAdvanced()
                 .iUploadPicture();
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoriesPage
-                .pageShouldBeOpened()
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldBeDisplayInTheTable(name);
     }
 
@@ -144,37 +154,43 @@ public class AdministrationCategoriesTests {
 
         //todo need to determine why the category won't appear in the paren category dropdown
         //create category
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened()
                 .iTypeName(nameParentCategory)
                 .iTypeDescription(description)
                 .iSwitchBasicToAdvanced()
                 .iUploadPicture();
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoriesPage
-                .pageShouldBeOpened()
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldBeDisplayInTheTable(nameParentCategory);
 
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened()
                 .iTypeName(nameSubCategory)
                 .iTypeDescription(description)
                 .iSelectParentCategory(nameParentCategory)
                 .iSwitchBasicToAdvanced()
                 .iUploadPicture();
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoriesPage
-                .pageShouldBeOpened()
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldBeDisplayInTheTable(nameParentCategory + " >> " + nameSubCategory);
     }
 
@@ -184,20 +200,20 @@ public class AdministrationCategoriesTests {
         String name = RandomData.generateNameCategory();
         String description = RandomData.generateDescriptionCategory();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .iTypeName(name)
                 .iTypeDescription(description);
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE_AND_CONTINUE_EDIT);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened()
                 .nameFieldShouldHaveValue(name)
                 .descriptionFieldShouldHaveText(description);
-        administrationHeaderWidget
+        headerWidget
                 .buttonShouldBeVisible(AdministrationHeaderButton.PREVIEW)
                 .buttonShouldBeVisible(AdministrationHeaderButton.DELETE);
     }
@@ -208,23 +224,23 @@ public class AdministrationCategoriesTests {
         String name = RandomData.generateNameCategory();
         String description = RandomData.generateDescriptionCategory();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES_CREATE);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened()
                 .iTypeName(name)
                 .iTypeDescription(description)
                 .iSwitchBasicToAdvanced()
                 .iUploadPicture();
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.SAVE_AND_CONTINUE_EDIT);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_NEW_CATEGORY_HAS_BEEN_ADDED_SUCCESSFULLY);
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened()
                 .nameFieldShouldHaveValue(name)
                 .descriptionFieldShouldHaveText(description);
-        administrationHeaderWidget
+        headerWidget
                 .buttonShouldBeVisible(AdministrationHeaderButton.PREVIEW)
                 .buttonShouldBeVisible(AdministrationHeaderButton.DELETE);
     }
@@ -235,19 +251,23 @@ public class AdministrationCategoriesTests {
         CategoryEntity categoryEntity = new FillCategoryEntity().fillRequiredFields();
         categoryDAO.create(categoryEntity);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
-        administrationCategoriesPage
+        categoriesPage
                 .clickEditBtnAtTheCategory(categoryEntity.getName());
-        administrationCategoryCreatePage
+        categoryCreatePage
                 .pageShouldBeOpened();
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.DELETE);
-        administrationModalWidget
+        modalWidget
                 .iClickBtn(AdministrationModalButton.DELETE);
-        administrationAlertNotificationWidget
+        alertNotificationWidget
                 .alertNotificationShouldBeVisible(AdministrationAlertNotification.THE_CATEGORY_HAS_BEEN_DELETED_SUCCESSFULLY);
-        administrationCategoriesPage
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldNotBeDisplayInTheTable(categoryEntity.getName());
     }
 
@@ -257,15 +277,19 @@ public class AdministrationCategoriesTests {
         CategoryEntity categoryEntity = new FillCategoryEntity().fillRequiredFields();
         categoryDAO.create(categoryEntity);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
-        administrationCategoriesPage
+        categoriesPage
                 .selectCheckboxAtTheCategory(categoryEntity.getName());
-        administrationHeaderWidget
+        headerWidget
                 .iClickBtn(AdministrationHeaderButton.DELETE_SELECTED);
-        administrationModalWidget
+        modalWidget
                 .iClickBtn(AdministrationModalButton.YES);
-        administrationCategoriesPage
+        categoriesPage
+                .pageShouldBeOpened();
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
+        categoriesPage
                 .categoryShouldNotBeDisplayInTheTable(categoryEntity.getName());
     }
 }

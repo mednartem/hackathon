@@ -13,7 +13,8 @@ public class HeaderWidget {
             elRegisterLink = $(".ico-register"),
             elLogoutLink = $(".ico-logout"),
             elMyAccountLink = $(".ico-account"),
-            elAdministrationLink = $(".administration");
+            elAdministrationLink = $(".administration"),
+            elShoppingCart = $("#topcartlink");
 
     @Step("`Log in` link should be visible in the header")
     public void loginBtnShouldBeVisible() {
@@ -61,5 +62,10 @@ public class HeaderWidget {
     @Step("I click `Administration` link in the header")
     public void iClickAdministrationLink() {
         elAdministrationLink.click();
+    }
+
+    @Step("I click to `Shopping cart` link in the header")
+    public void iClickShoppingCartLink() {
+        elShoppingCart.click();
     }
 }

@@ -7,7 +7,7 @@ import com.portnov.env_sky.logic.dictionary.ui.Message;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.RegisterPage;
 import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
-import com.portnov.env_sky.logic.steps.BaseSteps;
+import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 @WebTest
 public class RegistrationTests {
 
-    private final BaseSteps baseSteps = new BaseSteps();
+    private final BasePage basePage = new BasePage();
     private final RegisterPage registerPage = new RegisterPage();
     private final HeaderWidget headerWidget = new HeaderWidget();
 
@@ -28,7 +28,7 @@ public class RegistrationTests {
         String email = RandomData.generateUniqEmail();
         String password = RandomData.generatePassword();
 
-        baseSteps
+        basePage
                 .iOpenBasePage();
         headerWidget
                 .iClickRegisterLink();
@@ -57,7 +57,7 @@ public class RegistrationTests {
         String email = RandomData.generateUniqEmail();
         String password = RandomData.generateString(5);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWith(EndpointsUi.REGISTER);
         registerPage
                 .iTypeFirstName(firstName)
@@ -71,7 +71,7 @@ public class RegistrationTests {
     @Test
     @Link(value = "Test case TEAM1-72", url = "https://jira.portnov.com/browse/TEAM1-72")
     void registerWithEmptyRequiredFields() {
-        baseSteps
+        basePage
                 .iOpenBasePageWith(EndpointsUi.REGISTER);
         registerPage
                 .iClickRegisterBtn()
@@ -90,7 +90,7 @@ public class RegistrationTests {
         String email = RandomData.generateString(5);
         String password = RandomData.generatePassword();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWith(EndpointsUi.REGISTER);
         registerPage
                 .iTypeFirstName(firstName)

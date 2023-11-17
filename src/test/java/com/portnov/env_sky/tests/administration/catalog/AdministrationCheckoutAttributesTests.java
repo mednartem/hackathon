@@ -14,7 +14,7 @@ import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationAler
 import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationHeaderWidget;
 import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationMenuWidget;
 import com.portnov.env_sky.logic.pages.administration.widgets.AdministrationModalWidget;
-import com.portnov.env_sky.logic.steps.BaseSteps;
+import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(DaoExtension.class)
 public class AdministrationCheckoutAttributesTests {
 
-    private final BaseSteps baseSteps = new BaseSteps();
+    private final BasePage basePage = new BasePage();
     private final AdministrationCheckoutAttributesPage checkoutAttributesPage = new AdministrationCheckoutAttributesPage();
     private final AdministrationCheckoutAttributeCreatePage checkoutAttributeCreatePage = new AdministrationCheckoutAttributeCreatePage();
     private final AdministrationMenuWidget menuWidget = new AdministrationMenuWidget();
@@ -42,7 +42,7 @@ public class AdministrationCheckoutAttributesTests {
 
     @Test
     void openCheckoutAttributePage() {
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.DASHBOARD);
         menuWidget
                 .iClickMenu(AdministrationMenu.CATALOG)
@@ -57,7 +57,7 @@ public class AdministrationCheckoutAttributesTests {
     void addNewCheckoutAttributeBasic() {
         String name = RandomData.generateNameCheckoutAttribute();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CHECKOUT_ATTRIBUTE_LIST);
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
@@ -80,7 +80,7 @@ public class AdministrationCheckoutAttributesTests {
         CheckoutAttributesEntity checkoutAttributes = new FillCheckoutAttributeEntity().fillRequiredFields();
         checkoutAttributesDAO.create(checkoutAttributes);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CHECKOUT_ATTRIBUTE_LIST);
         checkoutAttributesPage
                 .clickEditBtnAtTheCheckoutAttribute(checkoutAttributes.getName());
@@ -103,7 +103,7 @@ public class AdministrationCheckoutAttributesTests {
         CheckoutAttributesEntity checkoutAttributes = new FillCheckoutAttributeEntity().fillRequiredFields();
         checkoutAttributesDAO.create(checkoutAttributes);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CHECKOUT_ATTRIBUTE_LIST);
         checkoutAttributesPage
                 .selectCheckboxAtTheCheckoutAttribute(checkoutAttributes.getName());

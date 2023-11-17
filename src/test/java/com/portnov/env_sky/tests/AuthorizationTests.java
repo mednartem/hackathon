@@ -7,7 +7,7 @@ import com.portnov.env_sky.logic.dictionary.ui.Error;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.LogInPage;
 import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
-import com.portnov.env_sky.logic.steps.BaseSteps;
+import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
 import org.junit.jupiter.api.DisplayName;
@@ -22,14 +22,14 @@ import java.util.stream.Stream;
 @WebTest
 public class AuthorizationTests {
 
-    private final BaseSteps baseSteps = new BaseSteps();
+    private final BasePage basePage = new BasePage();
     private final LogInPage logInPage = new LogInPage();
     private final HeaderWidget headerWidget = new HeaderWidget();
 
     @Test
     @Link(value = "Test case TEAM1-58", url = "https://jira.portnov.com/browse/TEAM1-58")
     void loginValidAsAdmin() {
-        baseSteps
+        basePage
                 .iOpenBasePage();
         headerWidget
                 .iClickLoginLink();
@@ -45,7 +45,7 @@ public class AuthorizationTests {
 
     @Test
     void loginValidAsUser() {
-        baseSteps
+        basePage
                 .iOpenBasePageWith(EndpointsUi.LOGIN);
         logInPage
                 .iTypeEmail(ProjectConfig.credential.userEmail())
@@ -64,7 +64,7 @@ public class AuthorizationTests {
     @Link(value = "Test case TEAM1-65", url = "https://jira.portnov.com/browse/TEAM1-65")
     @MethodSource("invalidData")
     void loginInvalid(String email, String password, Error error, String displayName) {
-        baseSteps
+        basePage
                 .iOpenBasePageWith(EndpointsUi.LOGIN);
         logInPage
                 .iTypeEmail(email)
@@ -105,7 +105,7 @@ public class AuthorizationTests {
     @ParameterizedTest(name = "{index} {3} => email=''{0}'', password=''{1}'', errorShouldBe={2}")
     @MethodSource("combineEmptyEmailField")
     void loginWithEmptyFields(String email, String password, Error error, String displayName) {
-        baseSteps
+        basePage
                 .iOpenBasePageWith(EndpointsUi.LOGIN);
         logInPage
                 .iTypeEmail(email)
@@ -133,7 +133,7 @@ public class AuthorizationTests {
 
     @Test
     void logoutAdmin() {
-        baseSteps
+        basePage
                 .iOpenBasePage()
                 .iAddCookieToBrowserAndRefreshPage(ProjectConfig.credential.adminEmail(), ProjectConfig.credential.adminPassword());
         headerWidget
@@ -143,7 +143,7 @@ public class AuthorizationTests {
 
     @Test
     void logoutUser() {
-        baseSteps
+        basePage
                 .iOpenBasePage()
                 .iAddCookieToBrowserAndRefreshPage(ProjectConfig.credential.userEmail(), ProjectConfig.credential.userPassword());
         headerWidget

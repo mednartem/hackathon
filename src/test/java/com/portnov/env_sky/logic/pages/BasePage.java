@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.steps;
+package com.portnov.env_sky.logic.pages;
 
 import com.codeborne.selenide.Selenide;
 import com.portnov.env_sky.logic.config.ProjectConfig;
@@ -7,25 +7,32 @@ import com.portnov.env_sky.logic.rest.AuthorizationApi;
 import com.portnov.env_sky.logic.rest.model.PersonModel;
 import io.qameta.allure.Step;
 
-public class BaseSteps {
+public class BasePage {
 
     @Step("I open base url")
-    public BaseSteps iOpenBasePage() {
+    public BasePage iOpenBasePage() {
         Selenide.open("/");
         return this;
     }
 
     @Step("I open base url with {url}")
-    public BaseSteps iOpenBasePageWith(String url) {
+    public BasePage iOpenBasePageWith(String url) {
         Selenide.open(url);
         return this;
     }
 
     @Step("I open base url with {url} with admin`s cookie")
-    public BaseSteps iOpenBasePageWithAdminCookie(String url) {
+    public BasePage iOpenBasePageWithAdminCookie(String url) {
         iOpenBasePage();
         iAddCookieForAdminToBrowserAndRefreshPage();
         iOpenBasePageWith(url);
+        return this;
+    }
+
+    @Step("I open base url with admin`s cookie")
+    public BasePage iOpenBasePageWithAdminCookie() {
+        iOpenBasePage();
+        iAddCookieForAdminToBrowserAndRefreshPage();
         return this;
     }
 
@@ -39,7 +46,7 @@ public class BaseSteps {
     }
 
     @Step("I add cookie to browser for admin")
-    public BaseSteps iAddCookieForAdminToBrowserAndRefreshPage() {
+    public BasePage iAddCookieForAdminToBrowserAndRefreshPage() {
         iAddCookieToBrowserAndRefreshPage(
                 ProjectConfig.credential.adminEmail(),
                 ProjectConfig.credential.adminPassword()

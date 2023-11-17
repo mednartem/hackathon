@@ -11,7 +11,7 @@ import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.manufacturer.AdministrationManufacturerCreatePage;
 import com.portnov.env_sky.logic.pages.administration.manufacturer.AdministrationManufacturersPage;
 import com.portnov.env_sky.logic.pages.administration.widgets.*;
-import com.portnov.env_sky.logic.steps.BaseSteps;
+import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(DaoExtension.class)
 public class AdministrationManufacturesTests {
 
-    private final BaseSteps baseSteps = new BaseSteps();
+    private final BasePage basePage = new BasePage();
     private final AdministrationManufacturersPage manufacturersPage = new AdministrationManufacturersPage();
     private final AdministrationManufacturerCreatePage manufacturerCreatePage = new AdministrationManufacturerCreatePage();
     private final AdministrationMenuWidget menuWidget = new AdministrationMenuWidget();
@@ -39,7 +39,7 @@ public class AdministrationManufacturesTests {
 
     @Test
     void openManufacturersPage() {
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.DASHBOARD);
         menuWidget
                 .iClickMenu(AdministrationMenu.CATALOG)
@@ -54,7 +54,7 @@ public class AdministrationManufacturesTests {
         String name = RandomData.generateNameManufacturer();
         String description = RandomData.generateDescriptionManufacturer();
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_MANUFACTURER);
         headerWidget
                 .iClickBtn(AdministrationHeaderButton.ADD_NEW);
@@ -77,7 +77,7 @@ public class AdministrationManufacturesTests {
         ManufacturerEntity manufacturerEntity = new FillManufacturerEntity().fillRequiredFields();
         manufacturerDAO.create(manufacturerEntity);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_MANUFACTURER);
         manufacturersPage
                 .clickEditBtnAtTheManufacturer(manufacturerEntity.getName());
@@ -99,7 +99,7 @@ public class AdministrationManufacturesTests {
         ManufacturerEntity manufacturerEntity = new FillManufacturerEntity().fillRequiredFields();
         manufacturerDAO.create(manufacturerEntity);
 
-        baseSteps
+        basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_MANUFACTURER);
         dataTableLengthWidget
                 .iSelectLength(AdministrationDataTableLength.HUNDRED);
