@@ -1,4 +1,4 @@
-package com.portnov.env_sky.tests.administration;
+package com.portnov.env_sky.tests.administration.catalog;
 
 import com.portnov.env_sky.logic.data.FillCheckoutAttributeEntity;
 import com.portnov.env_sky.logic.data.RandomData;

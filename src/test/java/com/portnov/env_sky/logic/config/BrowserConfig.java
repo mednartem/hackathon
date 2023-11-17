@@ -12,7 +12,4 @@ public interface BrowserConfig extends Config {
 
     @Key("browserSize")
     String browserSize();
-
-    @Key("isRemote")
-    boolean isRemote();
 }

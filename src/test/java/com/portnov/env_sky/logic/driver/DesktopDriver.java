@@ -24,9 +24,14 @@ public class DesktopDriver {
         chromeOptions.addArguments("--disable-popup-blocking");
         chromeOptions.addArguments("--disable-notifications");
 
-        if (ProjectConfig.browser.isRemote()) {
+        if (ProjectConfig.selenoid.isRemote()) {
             Configuration.timeout = 10000;
-            Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
+            Configuration.remote = String.format(
+                    "https://%s:%s@%s",
+                    ProjectConfig.selenoid.username(),
+                    ProjectConfig.selenoid.password(),
+                    ProjectConfig.selenoid.url()
+            );
 
             capabilities.setCapability("selenoid:options", Map.of(
                     "enableVNC", true,
