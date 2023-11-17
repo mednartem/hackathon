@@ -4,4 +4,5 @@ public class EndpointsUi {
     public static final String LOGIN = "/login";
     public static final String REGISTER = "/register";
     public static final String PASSWORD_RECOVERY = "/passwordrecovery";
+    public static final String CUSTOMER_INFO = "/customer/info";
 }

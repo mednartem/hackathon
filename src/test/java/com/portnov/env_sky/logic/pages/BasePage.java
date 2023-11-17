@@ -36,6 +36,13 @@ public class BasePage {
         return this;
     }
 
+    @Step("I open base url with user`s cookie")
+    public BasePage iOpenBasePageWithUserCookie() {
+        iOpenBasePage();
+        iAddCookieForUserToBrowserAndRefreshPage();
+        return this;
+    }
+
     @Step("I add cookie to browser for user email `{email}`, password `{password}`")
     public void iAddCookieToBrowserAndRefreshPage(String email, String password) {
         PersonModel personModel = new AuthorizationApi().getNopAuthentication(email, password);
@@ -50,6 +57,15 @@ public class BasePage {
         iAddCookieToBrowserAndRefreshPage(
                 ProjectConfig.credential.adminEmail(),
                 ProjectConfig.credential.adminPassword()
+        );
+        return this;
+    }
+
+    @Step("I add cookie to browser for user")
+    public BasePage iAddCookieForUserToBrowserAndRefreshPage() {
+        iAddCookieToBrowserAndRefreshPage(
+                ProjectConfig.credential.userEmail(),
+                ProjectConfig.credential.userPassword()
         );
         return this;
     }

@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.pages.widgets;
+package com.portnov.env_sky.logic.pages.header;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.portnov.env_sky.logic.dictionary.ui.MenuHeader;

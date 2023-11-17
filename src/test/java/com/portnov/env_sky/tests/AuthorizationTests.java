@@ -6,7 +6,7 @@ import com.portnov.env_sky.logic.dictionary.ui.EndpointsUi;
 import com.portnov.env_sky.logic.dictionary.ui.Error;
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.LogInPage;
-import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
+import com.portnov.env_sky.logic.pages.header.HeaderWidget;
 import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Link;
@@ -44,6 +44,7 @@ public class AuthorizationTests {
     }
 
     @Test
+    @Link(value = "Test case TEAM1-77", url = "https://jira.portnov.com/browse/TEAM1-77")
     void loginValidAsUser() {
         basePage
                 .iOpenBasePageWith(EndpointsUi.LOGIN);
@@ -132,6 +133,7 @@ public class AuthorizationTests {
     }
 
     @Test
+    @Link(value = "Test case TEAM1-80", url = "https://jira.portnov.com/browse/TEAM1-80")
     void logoutAdmin() {
         basePage
                 .iOpenBasePage()

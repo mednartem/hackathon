@@ -1,4 +1,4 @@
-package com.portnov.env_sky.logic.pages.widgets;
+package com.portnov.env_sky.logic.pages.header;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -67,5 +67,10 @@ public class HeaderWidget {
     @Step("I click to `Shopping cart` link in the header")
     public void iClickShoppingCartLink() {
         elShoppingCart.click();
+    }
+
+    @Step("I click to `My Account` link in the header")
+    public void iClickMyAccountLink() {
+        elMyAccountLink.click();
     }
 }

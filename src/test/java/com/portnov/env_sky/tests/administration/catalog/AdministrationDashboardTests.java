@@ -2,7 +2,7 @@ package com.portnov.env_sky.tests.administration.catalog;
 
 import com.portnov.env_sky.logic.jupiter.WebTest;
 import com.portnov.env_sky.logic.pages.administration.AdministrationDashboardPage;
-import com.portnov.env_sky.logic.pages.widgets.HeaderWidget;
+import com.portnov.env_sky.logic.pages.header.HeaderWidget;
 import com.portnov.env_sky.logic.pages.BasePage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
