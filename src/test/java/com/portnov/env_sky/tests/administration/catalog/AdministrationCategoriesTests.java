@@ -253,6 +253,8 @@ public class AdministrationCategoriesTests {
 
         basePage
                 .iOpenBasePageWithAdminCookie(AdministrationEndpointUi.CATALOG_CATEGORIES);
+        dataTableLengthWidget
+                .iSelectLength(AdministrationDataTableLength.HUNDRED);
         categoriesPage
                 .clickEditBtnAtTheCategory(categoryEntity.getName());
         categoryCreatePage
