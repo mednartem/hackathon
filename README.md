@@ -1,6 +1,6 @@
 # Internet Store Automation Tests
 
-This repository contains automation UI tests developed for the - [**Internet Store project**](https://env-sky.portnov.com/) used for participation in a hackathon.
+This repository contains automation UI tests developed for the - [**Internet Store project**](https://env-sky.portnov.com/) used for participation in a ***hackathon***.
 
 ## Overview
 
