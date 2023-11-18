@@ -1,6 +1,6 @@
 # Internet Store Automation Tests
 
-This repository contains automation UI tests developed for the Internet Store project used for participation in a hackathon.
+This repository contains automation UI tests developed for the - [**Internet Store project**](https://env-sky.portnov.com/) used for participation in a hackathon.
 
 ## Overview
 
@@ -31,18 +31,22 @@ These tests will be executed on Selenoid.
 After the test run, notifications will be sent to Telegram.
 
 
-#### Jenkins
+### Jenkins
 ![Jenkins](src/test/resources/images/Jenkins.png)
 
-#### Allure report
-Main page
+### Allure report
+>**Main page**
+&nbsp;
 ![Allure](src/test/resources/images/AllureReportMainPage.png)
 
-Failed tests have Screenshot, Current url, Browser console logs
+&nbsp;
+>**Failed tests have Screenshot, Current url, Browser console logs**
 ![Allure2](src/test/resources/images/Allure2.png)
 
-Tests are separated by features
+&nbsp;
+>**Tests are separated by features**
 ![Allure2](src/test/resources/images/Allure3.png)
 
-#### Notification to Telegram
+### Notifications
+>**To Telegram**
 ![Telegram](src/test/resources/images/Telegram.png)
